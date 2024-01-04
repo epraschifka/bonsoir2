@@ -1,0 +1,10 @@
+.statement {
+    padding:10px;
+    overflow:auto;
+    border: 1px solid grey;
+}
+
+.speaker-date-info {
+    color: grey;
+    font-size: 10px;
+}
