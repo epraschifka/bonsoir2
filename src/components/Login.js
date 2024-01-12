@@ -8,8 +8,10 @@ export default function Login()
         const url = 'http://localhost:3001/login';
         const headers = {"Content-Type" : "application/json"};
         const body = JSON.stringify({username: username, password: password});
-        const options = {method:'post',headers:headers,body:body};
+        const options = {method:'post',headers:headers,
+                         body:body,credentials:'include'};
         const result = await fetch(url, options);
+        console.log(result);
 
     }
 
