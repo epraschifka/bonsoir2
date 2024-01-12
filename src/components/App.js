@@ -1,10 +1,7 @@
-import LoginButton from './Login';
-import './App.css';
-
 function App() {
   return (
     <div className="App">
-      <LoginButton/>
+      <h1>Hello, World</h1>
     </div>
   );
 }
