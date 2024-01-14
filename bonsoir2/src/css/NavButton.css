@@ -1,0 +1,11 @@
+.NavButton-wrapper {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border:5px solid red;
+    width:100px;
+}
+
+.NavButton {
+    text-align:center;
+}
