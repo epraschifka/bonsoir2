@@ -1,0 +1,9 @@
+.navbar {
+    border: 1px solid black;
+    display:flex;
+    height:10%;
+}
+
+.navbar * {
+    margin: 2%;
+}
