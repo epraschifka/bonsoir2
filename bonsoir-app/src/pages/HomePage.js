@@ -16,17 +16,11 @@ function HomePage()
     }
 
     return (
-        <>
-
-            {isAuthenticated && (
-            <div className='home-wrapper'>
-                <NavBar/>
-                <Call/>
-                <Transcript/>
-            </div>
-            )}
-            {!isAuthenticated && (<h1>Unauthenticated!</h1>)}
-        </>
+        <div className='home-wrapper'>
+            <NavBar/>
+            <Call/>
+            <Transcript/>
+        </div>
     )
 }
 
