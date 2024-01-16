@@ -68,6 +68,7 @@ function NavBar()
             </div>
             <div className="navbar-bottom-wrapper">
                 <NavLink to='/profile'>Profile</NavLink>
+                <NavLink to='/vocabulary'>Vocabulary</NavLink>
                 <LogoutButton/>
             </div>
         </nav>

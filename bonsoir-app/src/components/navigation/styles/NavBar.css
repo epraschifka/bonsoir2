@@ -22,4 +22,7 @@
 .navbar-bottom-wrapper * {
     display:flex;
     justify-content:center;
+    flex-grow:1;
+    border:1px solid black;
+    align-items: center;
 }
