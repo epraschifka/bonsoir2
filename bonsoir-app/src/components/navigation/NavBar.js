@@ -67,7 +67,6 @@ function NavBar()
                 {printedConvos}
             </div>
             <div className="navbar-bottom-wrapper">
-                <NavLink to='/'>Home</NavLink>
                 <NavLink to='/profile'>Profile</NavLink>
                 <LogoutButton/>
             </div>
