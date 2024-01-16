@@ -6,7 +6,7 @@ function ProfilePage()
 {
     const { user } = useAuth0();
     return (
-        <div class='profile-wrapper'>
+        <div className='profile-wrapper'>
             <NavBar/>
             <div>
                 <h1>Profile</h1>

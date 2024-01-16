@@ -1,0 +1,12 @@
+.conversation-wrapper, .create-new-convo {
+    border: 1px solid black;
+    width:100%;
+    height: 25%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-new-convo {
+    cursor:pointer;
+}
