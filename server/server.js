@@ -41,7 +41,7 @@ app.get('/retrieve-conversations-id/:id', async (req,res) => {
     res.send({success:success, convo:convoArray});
   } catch (error)
   {
-
+    res.send({success:false, convo: '[]'});
   }
 })
 
