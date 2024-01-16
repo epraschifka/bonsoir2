@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId
 const app = express();
 const PORT = 3001;
 
@@ -19,12 +20,29 @@ const conversations = database.collection('conversations');
 const statements = database.collection('statements');
 
 // retrieve conversations with a given email
-app.get('/retrieve-conversations/:email', async (req,res) => {
+app.get('/retrieve-conversations-email/:email', async (req,res) => {
   const email = req.params.email
   console.log(`Searching for conversations with email=${email}`);
   const convos = conversations.find({userEmail:email});
   const convoArray = await convos.toArray();
   res.send(convoArray);
+})
+
+// retrieve the conversation with the given id
+app.get('/retrieve-conversations-id/:id', async (req,res) => {
+  try
+  {
+    const id = new ObjectId(req.params.id);
+    console.log(`Searching for conversations with id=${id}`);
+    const convos = conversations.find({_id:id});
+    const convoArray = await convos.toArray();
+    console.log(convoArray);
+    const success = convoArray.length > 0 ? true : false;
+    res.send({success:success, convo:convoArray});
+  } catch (error)
+  {
+
+  }
 })
 
 // create a new conversation with a supplied email and title

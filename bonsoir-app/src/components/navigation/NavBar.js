@@ -12,8 +12,8 @@ function NavBar()
     const { user } = useAuth0();
     const [convos, setConvos] = useState([]);
     const printedConvos = convos.map(convo => {
-        return (<Conversation id={convo._id} 
-                              email={convo.email} 
+        return (<Conversation id={convo._id}
+                              email={convo.email}
                               title={convo.title}
                               key={convo._id}/>);
     });
@@ -27,7 +27,7 @@ function NavBar()
     async function retrieveConvos()
     {
         console.log("Retrieving conversations...")
-        const url = 'http://localhost:3001/retrieve-conversations/'
+        const url = 'http://localhost:3001/retrieve-conversations-email/'
                         + user.email;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
@@ -52,7 +52,7 @@ function NavBar()
         const body = JSON.stringify({email: email, title: title});
         const options = {method:method,headers:headers,body:body};
         console.log(`Making fetch request to ${url} with options=${JSON.stringify(options)}`)
-        const res = await fetch(url,options);
+        await fetch(url,options);
         console.log("Fetch request complete.")
         console.log("Retrieving convos...")
         await retrieveConvos();

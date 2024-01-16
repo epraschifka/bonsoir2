@@ -1,9 +1,12 @@
+import { NavLink } from "react-router-dom";
 function Conversation(props)
 {
+    const linkString = '/conversation/' + props.id;
+
     return (
-        <div className='conversation-wrapper'>
+        <NavLink to={linkString} className='conversation-wrapper'>
             <p>{props.title}</p>
-        </div>
+        </NavLink>
     )
 }
 
