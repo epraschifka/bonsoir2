@@ -4,8 +4,7 @@ import { Navigate } from 'react-router-dom'
 import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
 import NavBar from "../components/navigation/NavBar";
-import Call from '../components/Call';
-import Transcript from '../components/Transcript';
+import Conversation from '../components/conversation/Conversation';
 import './styles/HomePage.css';
 function HomePage(props)
 {
@@ -52,8 +51,7 @@ function HomePage(props)
     return (
         <div className='home-wrapper'>
             <NavBar/>
-            <Call/>
-            <Transcript/>
+            <Conversation/>
         </div>
     )
 }

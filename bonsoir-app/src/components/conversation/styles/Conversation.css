@@ -1,0 +1,35 @@
+.conversation-wrapper {
+    border: 1px solid black;
+    width:100%;
+    display:flex;
+}
+
+.call-wrapper {
+    display:flex;
+    flex-grow:50;
+    border:1px solid black;
+    flex-direction: column;
+}
+
+.call-window {
+    flex-grow: 90;
+    border:1px solid black;
+}
+
+.call-participants {
+    flex-grow: 10;
+    border:1px solid black;
+}
+
+.transcript-wrapper {
+    display:flex;
+    flex-grow:50;
+    border:1px solid black;
+    flex-direction: column;
+    max-width:50%;
+}
+
+.transcript-logs {
+    flex-grow:80;
+    border:1px solid black;
+}

@@ -1,4 +1,3 @@
-import HomePage from './HomePage';
 import './styles/LoadingPage.css'
 function LoadingPage()
 {

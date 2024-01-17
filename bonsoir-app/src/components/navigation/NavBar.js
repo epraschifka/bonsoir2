@@ -1,18 +1,17 @@
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect } from "react";
-import Conversation from "./Conversation";
+import ConversationIcon from "./ConversationIcon";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import './styles/NavBar.css';
-import "./styles/Conversation.css";
 
 function NavBar()
 {
     const { user } = useAuth0();
     const [convos, setConvos] = useState([]);
     const printedConvos = convos.map(convo => {
-        return (<Conversation id={convo._id}
+        return (<ConversationIcon id={convo._id}
                               email={convo.email}
                               title={convo.title}
                               key={convo._id}/>);

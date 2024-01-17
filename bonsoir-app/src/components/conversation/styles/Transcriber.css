@@ -1,0 +1,22 @@
+.transcript-input-wrapper {
+    flex-grow:20;
+    border:1px solid black;
+    display:flex;
+}
+
+.transcript-input {
+    width:80%;
+    max-width:80%;
+    border:1px solid black;
+    display:flex;
+    align-items:center;
+    padding-left:5%;
+}
+
+.transcript-button-wrapper {
+    display:flex;
+    width:20%;
+    border:1px solid black;
+    justify-content:center;
+    align-items:center;
+}
