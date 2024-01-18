@@ -25,16 +25,13 @@ function NavBar()
     // function to retrieve conversations started by this user
     async function retrieveConvos()
     {
-        console.log("Retrieving conversations...")
         const url = 'http://localhost:3001/retrieve-conversations-email/'
                         + user.email;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
         const options = {method:method,headers:headers};
-        console.log(`Making fetch request to ${url} with options=${JSON.stringify(options)}`)
         const res = await fetch(url,options);
         const res_json = await res.json();
-        console.log(res_json);
         setConvos(res_json);
     }
 
@@ -42,7 +39,6 @@ function NavBar()
     // to update navbar.
     async function createNewConvo(string)
     {
-        console.log("Creating new conversation...")
         const url = 'http://localhost:3001/create-conversation';
         const method = 'post';
         const headers = {'Content-Type': 'application/json'};
@@ -50,10 +46,7 @@ function NavBar()
         const title = string;
         const body = JSON.stringify({email: email, title: title});
         const options = {method:method,headers:headers,body:body};
-        console.log(`Making fetch request to ${url} with options=${JSON.stringify(options)}`)
         await fetch(url,options);
-        console.log("Fetch request complete.")
-        console.log("Retrieving convos...")
         await retrieveConvos();
     }
 

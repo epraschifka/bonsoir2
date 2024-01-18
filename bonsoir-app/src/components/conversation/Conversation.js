@@ -1,7 +1,7 @@
 import Transcriber from './Transcriber';
 import './styles/Conversation.css';
 
-function Conversation()
+function Conversation(props)
 {
     return (
         <div className='conversation-wrapper'>
@@ -11,7 +11,7 @@ function Conversation()
             </div>
             <div className='transcript-wrapper'>
                 <div className='transcript-logs'></div>
-                <Transcriber/>
+                <Transcriber id={props.id}/>
             </div>
         </div>
     )

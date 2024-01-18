@@ -19,6 +19,15 @@ const users = database.collection('users');
 const conversations = database.collection('conversations');
 const statements = database.collection('statements');
 
+// create a new conversation with a supplied email and title
+app.post('/create-conversation', async (req,res) => {
+  const email = req.body.email;
+  const title = req.body.title;
+  const statementIds = [];
+  await conversations.insertOne({userEmail:email,title:title,statementIds:statementIds});
+  res.send({success:true,message:"New conversation created!"})
+})
+
 // retrieve conversations with a given email
 app.get('/retrieve-conversations-email/:email', async (req,res) => {
   const email = req.params.email
@@ -45,14 +54,36 @@ app.get('/retrieve-conversations-id/:id', async (req,res) => {
   }
 })
 
-// create a new conversation with a supplied email and title
-app.post('/create-conversation', async (req,res) => {
-  const email = req.body.email;
-  const title = req.body.title;
-  console.log(`email = ${email}`);
-  console.log(`title = ${title}`);
-  await conversations.insertOne({userEmail:email,title:title});
-  res.send({success:true,message:"New conversation created!"})
+// update the conversation with the given id
+app.post('/update-conversation', async (req,res) => {
+  try {
+    console.log(`req.body.convoID = ${req.body.convoID}`);
+    console.log(`req.body.statementID = ${req.body.statementID}`);
+    const convoID = new ObjectId(req.body.convoID);
+    const statementID = new ObjectId(req.body.statementID);
+    const filter = {_id: convoID};
+    const pushCommand = {$push: {statementIds: statementID}};
+    const updatedConvo = await conversations.updateOne(filter,pushCommand);
+    const success = updatedConvo ? true : false
+    res.send({success:success, message: "Conversation successfully updated!"});
+  } catch (error) 
+  {
+    console.log(`An error occured while updating a conversation: ${error}`);
+    res.send({success:false, convo:'[]'});
+  }
+})
+
+app.post('/create-statement', async (req,res) => {
+  try {
+    const statementText = req.body.statementText;
+    const result = await statements.insertOne({text: statementText});
+    const statementId = result.insertedId;
+    res.send({success:true, statementId: statementId});
+  } catch (error)
+  {
+    console.log(`An error occured while creating a statement: ${error}`);
+    res.send({success:false, statementId:''});
+  }
 })
 
 app.listen(PORT,() => {

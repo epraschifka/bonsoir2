@@ -21,16 +21,13 @@ function HomePage(props)
 
     async function retrieveConvo()
     {
-        console.log("Retrieving conversation...")
         const url = 'http://localhost:3001/retrieve-conversations-id/'
                         + convoID;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
         const options = {method:method,headers:headers};
-        console.log(`Making fetch request to ${url} with options=${JSON.stringify(options)}`)
         const res = await fetch(url,options);
         const res_json = await res.json();
-        console.log(res_json);
         setSuccess(res_json.success);
         setPageLoading(false);
     }
@@ -51,7 +48,7 @@ function HomePage(props)
     return (
         <div className='home-wrapper'>
             <NavBar/>
-            <Conversation/>
+            <Conversation id={convoID}/>
         </div>
     )
 }
