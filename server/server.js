@@ -42,16 +42,18 @@ app.get('/retrieve-conversations-email/:email', async (req,res) => {
 app.get('/retrieve-conversations-id/:id', async (req,res) => {
   try
   {
+    console.log(`req.params.id=${req.params.id}`)
     const id = new ObjectId(req.params.id);
     console.log(`Searching for conversations with id=${id}`);
-    const convos = conversations.find({_id:id});
-    const convoArray = await convos.toArray();
-    console.log(convoArray);
-    const success = convoArray.length > 0 ? true : false;
-    res.send({success:success, convo:convoArray});
+    const convo = await conversations.findOne({_id:id});
+    console.log(convo);
+    const success = convo ? true : false;
+    res.send({success:success, convo:convo});
   } catch (error)
   {
-    res.send({success:false, convo: '[]'});
+    console.log(`Error encountered while 
+                      retrieving conversation: ${error}`);
+    res.send({success: false, convo:null});
   }
 })
 
