@@ -19,12 +19,13 @@ const users = database.collection('users');
 const conversations = database.collection('conversations');
 const statements = database.collection('statements');
 
-// create a new conversation with a supplied email and title
+// create a new conversation with a supplied user email and 
+// conversation title
 app.post('/create-conversation', async (req,res) => {
   const email = req.body.email;
   const title = req.body.title;
   const statementIds = [];
-  await conversations.insertOne({userEmail:email,title:title,statementIds:statementIds});
+  await conversations.insertOne({userEmail:email,title:title,statements:[]});
   res.send({success:true,message:"New conversation created!"})
 })
 
@@ -54,16 +55,18 @@ app.get('/retrieve-conversations-id/:id', async (req,res) => {
   }
 })
 
-// update the conversation with the given id
+// update the conversation with id 'convoID' by adding the statement
+// with id 'statementID'
 app.post('/update-conversation', async (req,res) => {
   try {
-    console.log(`req.body.convoID = ${req.body.convoID}`);
-    console.log(`req.body.statementID = ${req.body.statementID}`);
     const convoID = new ObjectId(req.body.convoID);
-    const statementID = new ObjectId(req.body.statementID);
+    const statement = req.body.statement;
     const filter = {_id: convoID};
-    const pushCommand = {$push: {statementIds: statementID}};
+    console.log(`pushing a new statement ${JSON.stringify(statement)}
+                   into the conversation with id ${convoID}`);
+    const pushCommand = {$push: {statements: statement}};
     const updatedConvo = await conversations.updateOne(filter,pushCommand);
+    console.log(`updatedConvo = ${JSON.stringify(updatedConvo)}`)
     const success = updatedConvo ? true : false
     res.send({success:success, message: "Conversation successfully updated!"});
   } catch (error) 

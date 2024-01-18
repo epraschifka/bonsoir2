@@ -7,7 +7,7 @@ import './styles/Transcriber.css';
 // with this new statement.
 function Transcriber(props)
 {
-    const convoID = props.id;
+    const convoID = props.convoID;
 
     const {
         transcript,
@@ -21,45 +21,22 @@ function Transcriber(props)
     useEffect(() => {
         if (finalTranscript)
         {
-            const doThing = async () =>
-            {
-                // once final transcript is complete, first create a new
-                // statement:
-                const newStatementId = await createStatement(finalTranscript);
-
-                // Then take the id of the newly created statement
-                // and append it to the current conversation
-                await updateConversation(newStatementId);
+            const updateConversation = async (statement) => {
+                console.log("Updating conversation...");
+                const url = 'http://localhost:3001/update-conversation/';
+                const method = 'post';
+                const headers = {'Content-Type': 'application/json'};
+                const body = JSON.stringify({'convoID':convoID, 'statement':statement})
+                const options = {method:method,headers:headers,body:body};
+                const res = await fetch(url,options);
+                const res_json = await res.json();
+                console.log(res_json);
             }
-            doThing();
+
+            const statement = {'text':finalTranscript,'audio':''};
+            updateConversation(statement);
         }
     }, [finalTranscript])
-
-    const createStatement = async (text) => {
-        console.log("Creating new statement...");
-        const url = 'http://localhost:3001/create-statement/';
-        const method = 'post';
-        const headers = {'Content-Type': 'application/json'};
-        const body = JSON.stringify({'statementText':text})
-        const options = {method:method,headers:headers,body:body};
-        const res = await fetch(url,options);
-        const res_json = await res.json();
-        console.log(`Finished creating statement, res_json = ${JSON.stringify(res_json)}`);
-        return res_json.statementId;
-    }
-
-    const updateConversation = async (statementID) => {
-        console.log("Updating conversation...");
-        const url = 'http://localhost:3001/update-conversation/';
-        const method = 'post';
-        const headers = {'Content-Type': 'application/json'};
-        const body = JSON.stringify({'convoID':convoID, 'statementID':statementID})
-        const options = {method:method,headers:headers,body:body};
-        const res = await fetch(url,options);
-        const res_json = await res.json();
-        console.log(res_json);
-
-    }
 
     function toggleRecording()
     {
@@ -74,10 +51,13 @@ function Transcriber(props)
     }
 
     return (
-        <div className='transcript-input-wrapper'>
-            <div className='transcript-input'>{transcript}</div>
-            <div className='transcript-button-wrapper'>
-            <button onClick={toggleRecording}>{listening ? 'Stop Recording' : 'Start Recording'}</button>
+        <div className='transcript-wrapper'>
+            <div className='transcript-log'></div>
+            <div className='transcript-input'>
+                <p className='transcript-input-text'>{transcript}</p>
+                <div className='transcript-input-button-wrapper'>
+                    <button className='transcript-input-button' onClick={toggleRecording}>{listening ? 'Stop recording' : 'Start recording'}</button>
+                </div>
             </div>
         </div>
     )

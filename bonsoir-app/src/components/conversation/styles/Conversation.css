@@ -20,16 +20,3 @@
     flex-grow: 10;
     border:1px solid black;
 }
-
-.transcript-wrapper {
-    display:flex;
-    flex-grow:50;
-    border:1px solid black;
-    flex-direction: column;
-    max-width:50%;
-}
-
-.transcript-logs {
-    flex-grow:80;
-    border:1px solid black;
-}

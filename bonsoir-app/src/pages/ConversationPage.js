@@ -6,7 +6,8 @@ import ErrorPage from './ErrorPage';
 import NavBar from "../components/navigation/NavBar";
 import Conversation from '../components/conversation/Conversation';
 import './styles/HomePage.css';
-function HomePage(props)
+
+function ConversationPage(props)
 {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const convoID = props.convoID;
@@ -48,9 +49,9 @@ function HomePage(props)
     return (
         <div className='home-wrapper'>
             <NavBar/>
-            <Conversation id={convoID}/>
+            <Conversation convoID={convoID}/>
         </div>
     )
 }
 
-export default HomePage;
+export default ConversationPage;

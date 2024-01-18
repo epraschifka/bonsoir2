@@ -1,22 +1,37 @@
-.transcript-input-wrapper {
-    flex-grow:20;
-    border:1px solid black;
+.transcript-wrapper {
     display:flex;
+    flex-direction: column;
+    flex-grow:50;
+    border: 1px solid black;
+    max-width:50%;
+}
+
+.transcript-log {
+    flex-grow: 80;
+    border:1px solid black;
 }
 
 .transcript-input {
-    width:80%;
-    max-width:80%;
-    border:1px solid black;
     display:flex;
-    align-items:center;
-    padding-left:5%;
+    flex-grow:20;
 }
 
-.transcript-button-wrapper {
+.transcript-input-text {
+    margin:0px;
+    padding:0px;
     display:flex;
-    width:20%;
-    border:1px solid black;
     justify-content:center;
     align-items:center;
+    flex-grow:80;
+    border:2px solid green;
+    max-width:68%;
+    font-size:20px;
+}
+
+.transcript-input-button-wrapper {
+    display:flex;
+    flex-grow:20;
+    align-items:center;
+    justify-content: center;
+    border: 2px solid blue;
 }

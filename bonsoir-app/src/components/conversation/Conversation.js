@@ -9,10 +9,7 @@ function Conversation(props)
                 <div className='call-window'></div>
                 <div className='call-participants'></div>
             </div>
-            <div className='transcript-wrapper'>
-                <div className='transcript-logs'></div>
-                <Transcriber id={props.id}/>
-            </div>
+            <Transcriber convoID={props.convoID}/>
         </div>
     )
 }
