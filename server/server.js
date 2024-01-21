@@ -1,23 +1,30 @@
 // dependencies
 const express = require('express');
+const dotenv = require("dotenv");
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId
 const app = express();
 const PORT = 3001;
 
+
 // middleware
 app.use(cors());
 app.use(express.json());
+dotenv.config();
+const apiKey = process.env.DG_KEY;
 
 // database setup. Each user can have multiple conversations,
 // and each conversation consists of multiple statements.
 const uri = "mongodb+srv://edwardpraschifka:oZOVIOEhdtHg4ehN@bonsoir-cluster.2neujbs.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 const database = client.db('bonsoir-db');
-const users = database.collection('users');
 const conversations = database.collection('conversations');
 const statements = database.collection('statements');
+
+app.get("/apiKey", async (req, res) => {
+  res.json({'apiKey':apiKey});
+});
 
 // create a new conversation with a supplied user email and 
 // conversation title

@@ -1,3 +1,4 @@
+import Chatlog from './Chatlog';
 import Transcriber from './Transcriber';
 import './styles/Conversation.css';
 
@@ -9,7 +10,10 @@ function Conversation(props)
                 <div className='call-window'></div>
                 <div className='call-participants'></div>
             </div>
-            <Transcriber convoID={props.convoID}/>
+            <div className='chat-wrapper'>
+                <Chatlog/>
+                <Transcriber/>
+            </div>
         </div>
     )
 }
