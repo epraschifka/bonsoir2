@@ -1,16 +1,20 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useContext, useRef } from 'react';
 import { createClient } from '@deepgram/sdk';
+import { inputCtx } from './Conversation.js';
 import './styles/Transcriber.css'
 
 // a component that prints transcribed french speech in real time.
 // Once it's finished transcribing, it updates the current conversation
 // with this new statement.
-function Transcriber()
+function Transcriber(props)
 {
   const [apiKey, setApiKey] = useState(null);
   const [microphone, setMicrophone] = useState(null);
   const [socket, setSocket] = useState(null);
   const [transcript,setTranscript] = useState('');
+  const [ recording, setRecording ] = useState(false);
+  const { input, setInput } = useContext(inputCtx);
+  const socketRef = useRef(null);
 
   // on the initial render:
   //  1. get and set the api key
@@ -24,7 +28,9 @@ function Transcriber()
   useMemo(() => {
     function getSocket() {
       const _deepgram = createClient(apiKey);
-      const options = { model: "nova-2", smart_format: true, language: 'fr', interim_results: true }
+      const options = { model: "nova-2", smart_format: true, 
+                        language: 'fr', interim_results: true,
+                        endpointing: 10 }
       const _socket = _deepgram.listen.live(options);
       setSocket(_socket);
     }
@@ -40,6 +46,7 @@ function Transcriber()
   useMemo(() => {
     if (socket)
     {
+      socketRef.current = socket;
       setupSocket(socket);
     }
   }, [socket])
@@ -63,25 +70,28 @@ function Transcriber()
   function setupSocket(socket) {
     if (socket)
     {
-      socket.on("open", () => {
-        console.log("socket open");
-        socket.on("Results", data => {
-          const _transcript = data.channel.alternatives[0].transcript;
-          console.log(`data.channel.alternatives[0] = ${JSON.stringify(data.channel.alternatives[0])}`)
-
-          if (_transcript)
-          {
-            setTranscript(_transcript)
-          }
-        })
-
-      })
+      socket.on("Results", data => {
+        console.log("Received data from WebSocket:", data);
+      
+        const _transcript = data.channel.alternatives[0].transcript;
+      
+        if (_transcript) {
+          setTranscript(_transcript);
+        }
+      
+        if (data.speech_final && _transcript) {
+          console.log("speech_final detected");
+          updateConversation(_transcript);
+        }
+      });
+      
     }
   }
 
   // start listening to user and sending
   // user audio to deepgram
   async function startListening(microphone,socket) {
+    setRecording(true);
     await microphone.start(500);
   
     microphone.onstart = () => {
@@ -99,19 +109,33 @@ function Transcriber()
     };
   }
 
+  // update conversation with new statement
+  async function updateConversation(statement) {
+    console.log("Updating conversation...");
+    const url = 'http://localhost:3001/update-conversation/';
+    const method = 'post';
+    const headers = {'Content-Type': 'application/json'};
+    const body = JSON.stringify({'convoID':props.convoID, 'statement':statement})
+    const options = {method:method,headers:headers,body:body};
+    const res = await fetch(url,options);
+    const res_json = await res.json();
+    console.log(`updatedConversation with res_json=${JSON.stringify(res_json)}`);
+    setInput(statement);
+}
+
   // stop listening to user
-  async function stopListening(microphone) {
+  function stopListening(microphone) {
+    setRecording(false);
     microphone.stop();
   }
-
-
   
+
   return (
     <div className='transcriber-wrapper'>
       <p className='transcript'>{transcript}</p>
       <div className='transcriber-buttons'>
-        <button onClick={() => {startListening(microphone,socket)}}>Start recording</button>
-        <button onClick={() => {stopListening(microphone)}}>Stop recording</button>
+        <button onClick={() => {startListening(microphone,socket)}} disabled={recording}>Start recording</button>
+        <button onClick={() => {stopListening(microphone)}} disabled={!recording}>Stop recording</button>
       </div>
     </div>
   )

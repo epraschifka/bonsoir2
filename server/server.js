@@ -73,7 +73,7 @@ app.post('/update-conversation', async (req,res) => {
     const filter = {_id: convoID};
     console.log(`pushing a new statement ${JSON.stringify(statement)}
                    into the conversation with id ${convoID}`);
-    const pushCommand = {$push: {statements: statement}};
+    const pushCommand = {$push: {statements: {text:statement,audio:'audio_file'}}};
     const updatedConvo = await conversations.updateOne(filter,pushCommand);
     console.log(`updatedConvo = ${JSON.stringify(updatedConvo)}`)
     const success = updatedConvo ? true : false
