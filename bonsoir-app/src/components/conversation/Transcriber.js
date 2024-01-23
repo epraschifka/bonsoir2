@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useContext, useRef } from 'react';
+import { useState, useEffect, useMemo, useContext } from 'react';
 import { createClient } from '@deepgram/sdk';
 import { inputCtx } from './Conversation.js';
 import './styles/Transcriber.css'
@@ -14,17 +14,17 @@ function Transcriber(props)
   const [transcript,setTranscript] = useState('');
   const [ recording, setRecording ] = useState(false);
   const { input, setInput } = useContext(inputCtx);
-  const socketRef = useRef(null);
 
   // on the initial render:
   //  1. get and set the api key
   //  2. get and set the user's microphone
   useEffect(() => {
+    console.log("useEffect triggered (1)")
     getApiKey();
     getMicrophone();
   }, []);
 
-  // once we have the key, set up socket
+  // once we have the key and the microphone, set up socket
   useMemo(() => {
     function getSocket() {
       const _deepgram = createClient(apiKey);
@@ -35,19 +35,20 @@ function Transcriber(props)
       setSocket(_socket);
     }
 
-    if (apiKey)
+    if (apiKey && microphone)
     {
+      console.log("useMemo triggered (2)")
       getSocket();
     }
     
-  }, [apiKey]);
+  }, [apiKey,microphone]);
 
   // once we have socket, define socket behavior
   useMemo(() => {
     if (socket)
     {
-      socketRef.current = socket;
-      setupSocket(socket);
+      console.log("useMemo triggered (3)")
+      setupSocket(socket,microphone);
     }
   }, [socket])
 
@@ -63,24 +64,23 @@ function Transcriber(props)
       audio: true,
     });
     const userMicrophone = new MediaRecorder(userMedia);
+    console.log(`userMicrophone = ${JSON.stringify(userMicrophone)}`);
     setMicrophone(userMicrophone);
   }
 
   // define socket behavior
-  function setupSocket(socket) {
+  function setupSocket(socket,microphone) {
     if (socket)
     {
-      socket.on("Results", data => {
-        console.log("Received data from WebSocket:", data);
-      
+      socket.on("Results", data => {        
         const _transcript = data.channel.alternatives[0].transcript;
-      
+        
         if (_transcript) {
           setTranscript(_transcript);
         }
       
         if (data.speech_final && _transcript) {
-          console.log("speech_final detected");
+          stopListening(microphone);
           updateConversation(_transcript);
         }
       });
@@ -104,14 +104,12 @@ function Transcriber(props)
   
     microphone.ondataavailable = (e) => {
       const data = e.data;
-      // console.log("client: sent data to websocket");
       socket.send(data);
     };
   }
 
   // update conversation with new statement
   async function updateConversation(statement) {
-    console.log("Updating conversation...");
     const url = 'http://localhost:3001/update-conversation/';
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
@@ -119,12 +117,15 @@ function Transcriber(props)
     const options = {method:method,headers:headers,body:body};
     const res = await fetch(url,options);
     const res_json = await res.json();
-    console.log(`updatedConversation with res_json=${JSON.stringify(res_json)}`);
+    // console.log(`updatedConversation with res_json=${JSON.stringify(res_json)}`);
     setInput(statement);
 }
 
   // stop listening to user
   function stopListening(microphone) {
+    console.log(microphone);
+    console.log(JSON.stringify(microphone));
+    console.log("stopping microphone...")
     setRecording(false);
     microphone.stop();
   }
@@ -136,6 +137,7 @@ function Transcriber(props)
       <div className='transcriber-buttons'>
         <button onClick={() => {startListening(microphone,socket)}} disabled={recording}>Start recording</button>
         <button onClick={() => {stopListening(microphone)}} disabled={!recording}>Stop recording</button>
+        <button onClick={() => {console.log(`microphone = ${JSON.stringify(microphone)}`)}}>Microphone</button>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect } from "react";
 import ConversationIcon from "./ConversationIcon";
@@ -46,7 +46,9 @@ function NavBar()
         const title = string;
         const body = JSON.stringify({email: email, title: title});
         const options = {method:method,headers:headers,body:body};
-        await fetch(url,options);
+        const res = await fetch(url,options);
+        const res_json = await res.json();
+        const convoID = res_json.info;
         await retrieveConvos();
     }
 

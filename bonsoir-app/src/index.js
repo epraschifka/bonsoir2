@@ -7,7 +7,7 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <>
     <BrowserRouter>
       <Auth0Provider
         domain='dev-6aw2611vi2ravbh4.us.auth0.com'
@@ -19,5 +19,5 @@ root.render(
         <App/>
       </Auth0Provider>
     </BrowserRouter>
-  </React.StrictMode>
+  </>
 );

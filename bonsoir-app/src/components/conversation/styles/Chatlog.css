@@ -1,4 +1,5 @@
 .chatlog-wrapper {
     border:1px solid green;
     flex-grow:80;
+    overflow:auto;
 }

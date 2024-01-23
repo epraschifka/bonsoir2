@@ -32,8 +32,9 @@ app.post('/create-conversation', async (req,res) => {
   const email = req.body.email;
   const title = req.body.title;
   const statementIds = [];
-  await conversations.insertOne({userEmail:email,title:title,statements:[]});
-  res.send({success:true,message:"New conversation created!"})
+  const result = await conversations.insertOne({userEmail:email,title:title,statements:[]});
+  console.log(result);
+  res.send({success:true,message:"New conversation created!",info:result.insertedId});
 })
 
 // retrieve conversations with a given email
