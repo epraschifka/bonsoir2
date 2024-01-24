@@ -5,17 +5,12 @@ import './styles/Chatlog.css';
 
 function Chatlog(props)
 {
-    const [chatlog,setChatlog] = useState([1,2]);
+    const [chatlog,setChatlog] = useState([]);
     const { input, setInput } = useContext(inputCtx);
     let chatlog_mapped;
-    try {
-         chatlog_mapped = chatlog.map(statement => {
-            return (<p>{statement.text}</p>)
-        })
-    } catch (error)
-    {
-        console.log(`chatlog = ${JSON.stringify(chatlog)}`);
-    }
+    chatlog_mapped = chatlog.map(statement => {
+        return (<p>{statement.text}</p>)
+    })
 
     useEffect(() => {
         async function retrieveConversation() {

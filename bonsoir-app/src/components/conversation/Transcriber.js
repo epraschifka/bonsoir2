@@ -37,7 +37,6 @@ function Transcriber(props)
 
     if (apiKey && microphone)
     {
-      console.log("useMemo triggered (2)")
       getSocket();
     }
     
@@ -47,7 +46,6 @@ function Transcriber(props)
   useMemo(() => {
     if (socket)
     {
-      console.log("useMemo triggered (3)")
       setupSocket(socket,microphone);
     }
   }, [socket])
@@ -69,10 +67,10 @@ function Transcriber(props)
   }
 
   // define socket behavior
-  function setupSocket(socket,microphone) {
+  async function setupSocket(socket,microphone) {
     if (socket)
     {
-      socket.on("Results", data => {        
+      socket.on("Results", async (data) => {        
         const _transcript = data.channel.alternatives[0].transcript;
         
         if (_transcript) {
@@ -81,7 +79,9 @@ function Transcriber(props)
       
         if (data.speech_final && _transcript) {
           stopListening(microphone);
-          updateConversation(_transcript);
+          await updateConversation('human',_transcript);
+          const aiResponse = await getResponse(_transcript);
+          await updateConversation('bonsoir',aiResponse);
         }
       });
       
@@ -109,17 +109,28 @@ function Transcriber(props)
   }
 
   // update conversation with new statement
-  async function updateConversation(statement) {
+  async function updateConversation(speaker,statement) {
     const url = 'http://localhost:3001/update-conversation/';
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
-    const body = JSON.stringify({'convoID':props.convoID, 'statement':statement})
+    const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement})
     const options = {method:method,headers:headers,body:body};
     const res = await fetch(url,options);
     const res_json = await res.json();
-    // console.log(`updatedConversation with res_json=${JSON.stringify(res_json)}`);
     setInput(statement);
-}
+  }
+
+  // gets response from chatgpt
+  async function getResponse(statement) {
+    const url = 'http://localhost:3001/post-query/';
+    const headers = {'Content-Type': 'application/json'};
+    const body = JSON.stringify({'query':statement})
+    const options = {method:'post',headers:headers,body:body};
+    const res = await fetch(url,options);
+    const res_json = await res.json();
+    const res_text = res_json.myText;
+    return res_text;
+  }
 
   // stop listening to user
   function stopListening(microphone) {
@@ -130,14 +141,12 @@ function Transcriber(props)
     microphone.stop();
   }
   
-
   return (
     <div className='transcriber-wrapper'>
       <p className='transcript'>{transcript}</p>
       <div className='transcriber-buttons'>
         <button onClick={() => {startListening(microphone,socket)}} disabled={recording}>Start recording</button>
         <button onClick={() => {stopListening(microphone)}} disabled={!recording}>Stop recording</button>
-        <button onClick={() => {console.log(`microphone = ${JSON.stringify(microphone)}`)}}>Microphone</button>
       </div>
     </div>
   )

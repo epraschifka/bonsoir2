@@ -8,6 +8,8 @@ export const inputCtx = createContext();
 function Conversation(props)
 {
     const [input, setInput] = useState('First input');
+    const [speaker, setSpeaker] = useState('human');
+    const [messageId, setMessageId] = useState('');
     return (
         <div className='conversation-wrapper'>
             <div className='call-wrapper'>
@@ -15,7 +17,7 @@ function Conversation(props)
                 <div className='call-participants'></div>
             </div>
             <div className='chat-wrapper'>
-                <inputCtx.Provider value={{ input,setInput }}>
+                <inputCtx.Provider value={{ speaker, setSpeaker, input, setInput, messageId, setMessageId }}>
                     <Chatlog convoID={props.convoID}/>
                     <Transcriber convoID={props.convoID}/>
                 </inputCtx.Provider>
