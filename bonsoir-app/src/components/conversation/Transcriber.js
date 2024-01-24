@@ -3,9 +3,8 @@ import { createClient } from '@deepgram/sdk';
 import { inputCtx } from './Conversation.js';
 import './styles/Transcriber.css'
 
-// a component that prints transcribed french speech in real time.
-// Once it's finished transcribing, it updates the current conversation
-// with this new statement.
+// a component that transcribes french speech in real time
+// while updating the convo stored on the database
 function Transcriber(props)
 {
   const [apiKey, setApiKey] = useState(null);
@@ -13,13 +12,14 @@ function Transcriber(props)
   const [socket, setSocket] = useState(null);
   const [transcript,setTranscript] = useState('');
   const [ recording, setRecording ] = useState(false);
-  const { input, setInput } = useContext(inputCtx);
+  const { speaker, setSpeaker, 
+          input, setInput, 
+          messageId, setMessageId } = useContext(inputCtx);
 
   // on the initial render:
   //  1. get and set the api key
   //  2. get and set the user's microphone
   useEffect(() => {
-    console.log("useEffect triggered (1)")
     getApiKey();
     getMicrophone();
   }, []);
@@ -42,7 +42,7 @@ function Transcriber(props)
     
   }, [apiKey,microphone]);
 
-  // once we have socket, define socket behavior
+  // once we have the socket, define socket behavior
   useMemo(() => {
     if (socket)
     {
@@ -50,6 +50,7 @@ function Transcriber(props)
     }
   }, [socket])
 
+  // get deepgram api key
   async function getApiKey() {
     const result = await fetch("http://localhost:3001/apiKey");
     const json = await result.json();
@@ -80,8 +81,11 @@ function Transcriber(props)
         if (data.speech_final && _transcript) {
           stopListening(microphone);
           await updateConversation('human',_transcript);
+          setSpeaker('bonsoir');
           const aiResponse = await getResponse(_transcript);
           await updateConversation('bonsoir',aiResponse);
+          setSpeaker('human');
+          startListening(microphone,socket);
         }
       });
       
@@ -145,8 +149,8 @@ function Transcriber(props)
     <div className='transcriber-wrapper'>
       <p className='transcript'>{transcript}</p>
       <div className='transcriber-buttons'>
-        <button onClick={() => {startListening(microphone,socket)}} disabled={recording}>Start recording</button>
-        <button onClick={() => {stopListening(microphone)}} disabled={!recording}>Stop recording</button>
+        <button onClick={() => {startListening(microphone,socket)}} disabled={speaker === 'bonsoir' || recording}>Start recording</button>
+        <button onClick={() => {stopListening(microphone)}} disabled={speaker === 'bonsoir' || !recording}>Stop recording</button>
       </div>
     </div>
   )

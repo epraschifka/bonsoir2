@@ -6,7 +6,7 @@
 
 .call-wrapper {
     display:flex;
-    flex-grow:60;
+    width:50%;
     border:1px solid black;
     flex-direction: column;
 }
@@ -23,7 +23,7 @@
 
 .chat-wrapper {
     display: flex;
-    flex-grow:40;
+    width:50%;
     flex-direction: column;
     border:1px solid red;
 }

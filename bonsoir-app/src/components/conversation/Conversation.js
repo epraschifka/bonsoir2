@@ -17,7 +17,9 @@ function Conversation(props)
                 <div className='call-participants'></div>
             </div>
             <div className='chat-wrapper'>
-                <inputCtx.Provider value={{ speaker, setSpeaker, input, setInput, messageId, setMessageId }}>
+                <inputCtx.Provider value={{ speaker, setSpeaker, 
+                                            input, setInput, 
+                                            messageId, setMessageId }}>
                     <Chatlog convoID={props.convoID}/>
                     <Transcriber convoID={props.convoID}/>
                 </inputCtx.Provider>
