@@ -4,23 +4,6 @@
     display:flex;
 }
 
-.call-wrapper {
-    display:flex;
-    width:50%;
-    border:1px solid black;
-    flex-direction: column;
-}
-
-.call-window {
-    flex-grow: 90;
-    border:1px solid black;
-}
-
-.call-participants {
-    flex-grow: 10;
-    border:1px solid black;
-}
-
 .chat-wrapper {
     display: flex;
     width:50%;

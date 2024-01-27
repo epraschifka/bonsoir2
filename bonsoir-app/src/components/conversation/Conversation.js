@@ -1,4 +1,5 @@
 import { useState, createContext } from 'react';
+import Call from './Call';
 import Chatlog from './Chatlog';
 import Transcriber from './Transcriber';
 import './styles/Conversation.css';
@@ -11,20 +12,17 @@ function Conversation(props)
     const [speaker, setSpeaker] = useState('human');
     const [messageId, setMessageId] = useState('');
     return (
+        <inputCtx.Provider value={{ speaker, setSpeaker, 
+                                    input, setInput, 
+                                    messageId, setMessageId }}>
         <div className='conversation-wrapper'>
-            <div className='call-wrapper'>
-                <div className='call-window'></div>
-                <div className='call-participants'></div>
-            </div>
+            <Call/>
             <div className='chat-wrapper'>
-                <inputCtx.Provider value={{ speaker, setSpeaker, 
-                                            input, setInput, 
-                                            messageId, setMessageId }}>
                     <Chatlog convoID={props.convoID}/>
                     <Transcriber convoID={props.convoID}/>
-                </inputCtx.Provider>
             </div>
         </div>
+        </inputCtx.Provider>
     )
 }
 
