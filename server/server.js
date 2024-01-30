@@ -8,7 +8,10 @@ import { ObjectId } from 'mongodb'
 
 const app = express();
 const PORT = 3001;
-const systemMessage = `You are Bonsoir, a cheerful French tutor who helps
+const elevenLabsKey = process.env.elevenLabsKey;
+// const elevenLabsVoice = 'hsDNToeZAyHpjnC5X924'
+const elevenLabsVoice = '21m00Tcm4TlvDq8ikWAM'
+/* const systemMessage = `You are Bonsoir, a cheerful French tutor who helps
                       french learners practice speaking and listening to French
                       by simulating authentic, real conversations in French.
                       Be as concise in your responses as possible. If you are
@@ -21,9 +24,12 @@ const systemMessage = `You are Bonsoir, a cheerful French tutor who helps
                       as if you are a human. If something they say
                       doesn't make sense or sounds ungrammatical,
                       either correct them or ask for clarification - be 
-                      very strict about this! Try to be warm, friendly and intimate rather than cold 
+                      very strict about this! Try to be warm and friendly rather than cold 
                       and robotic. Your plans today are to go shopping,
-                      walk on the beach and make dinner.`
+                      walk on the beach and make dinner.` */
+const systemMessage = `You are a friendly, warm assistant who answers
+                      questions from the user and likes to have interesting
+                      conversations! Keep your answers short and sweet.`
 
 const api = new ChatGPTAPI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -50,26 +56,46 @@ async function generateText(query,parentMessageId) {
     parentMessageId: parentMessageId,
     systemMessage: systemMessage
   });
-
-  console.log(`Received query '${query}', sending back
-                  response ${reply.text}`);
   return reply;
+}
+
+async function generateSpeech(script,voiceId,apiKey) {
+  const url = 'https://api.elevenlabs.io/v1/text-to-speech/' + voiceId;
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'audio/mpeg',
+      'content-type': 'application/json',
+      'xi-api-key': apiKey,
+    },
+    body: JSON.stringify({
+      model_id: "eleven_multilingual_v2",
+      text: script,
+      voice_settings:{"similarity_boost":1,"stability":1,"style":0,"use_speaker_boost":true}
+    }),
+    responseType: 'arraybuffer',
+  };
+
+  try {
+    const speechDetails = await fetch(url, options);
+    const audioBuffer = await speechDetails.arrayBuffer();
+    const mp3Blob = new Uint8Array(audioBuffer);
+    return mp3Blob;
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
 // posts request body to chatgpt
 app.post('/post-query', async (req,res) => {
   const query = req.body.query;
+  console.log(`received a request with query=${query}.`)
   const parentMessageId = req.body.parentMessageId;
-  const maleVoiceID = "z5QwUJ8lCPK64PB6okBk";
-  const femaleVoiceID = "hsDNToeZAyHpjnC5X924";
-  const apiKey = '7893e3f397a96eac30deba97f42ab4f8'
-  const reply = await generateText(query,parentMessageId);
-  console.log(`reply = ${reply}`);
-  // const reply_text = reply.text;
-  // const reply_audio = await generateSpeech(reply_text,femaleVoiceID,apiKey);
-  // const myAudio = Array.from(reply_audio);
-  // console.log(`Sending back a response with myText=${reply} and myAudio=${reply_audio}`);
-  res.send({'myText': reply.text});
+  const reply = await generateText(query,2);
+  const reply_audio = await generateSpeech(reply.text,elevenLabsVoice,elevenLabsKey)
+  console.log(`Sending back a response = ${reply.text}...`);
+  res.send({'text': reply.text, 'id':reply.parentMessageId, 
+                  'audio': reply_audio});
 });
 
 // get deepgram api key
@@ -84,14 +110,12 @@ app.post('/create-conversation', async (req,res) => {
   const title = req.body.title;
   const statementIds = [];
   const result = await conversations.insertOne({userEmail:email,title:title,statements:[]});
-  console.log(result);
   res.send({success:true,message:"New conversation created!",info:result.insertedId});
 })
 
 // retrieve conversations with a given email
 app.get('/retrieve-conversations-email/:email', async (req,res) => {
   const email = req.params.email
-  console.log(`Searching for conversations with email=${email}`);
   const convos = conversations.find({userEmail:email});
   const convoArray = await convos.toArray();
   res.send(convoArray);
@@ -101,11 +125,8 @@ app.get('/retrieve-conversations-email/:email', async (req,res) => {
 app.get('/retrieve-conversations-id/:id', async (req,res) => {
   try
   {
-    console.log(`req.params.id=${req.params.id}`)
     const id = new ObjectId(req.params.id);
-    console.log(`Searching for conversations with id=${id}`);
     const convo = await conversations.findOne({_id:id});
-    console.log(convo);
     const success = convo ? true : false;
     res.send({success:success, convo:convo});
   } catch (error)
@@ -122,13 +143,11 @@ app.post('/update-conversation', async (req,res) => {
   try {
     const convoID = new ObjectId(req.body.convoID);
     const speaker = req.body.speaker;
-    const statement = req.body.statement;
+    const text = req.body.statement.text;
+    const audio = req.body.statement.audio;
     const filter = {_id: convoID};
-    console.log(`pushing a new statement ${JSON.stringify(statement)}
-                   into the conversation with id ${convoID}`);
-    const pushCommand = {$push: {statements: {text:statement,speaker:speaker,audio:'audio_file'}}};
+    const pushCommand = {$push: {statements: {speaker:speaker,text:text,audio:audio}}};
     const updatedConvo = await conversations.updateOne(filter,pushCommand);
-    console.log(`updatedConvo = ${JSON.stringify(updatedConvo)}`)
     const success = updatedConvo ? true : false
     res.send({success:success, message: "Conversation successfully updated!"});
   } catch (error) 

@@ -7,14 +7,14 @@ function Chatlog(props)
 {
     const [chatlog,setChatlog] = useState([]);
     const { input, setInput } = useContext(inputCtx);
-    let chatlog_mapped;
-    chatlog_mapped = chatlog.map(statement => {
-        return (<p>{statement.text}</p>)
+    let chatlog_mapped = chatlog.map(statement => {
+        return (<>
+                    <p>{statement.text}</p>
+                </>)
     })
 
     useEffect(() => {
         async function retrieveConversation() {
-            console.log("retrieving conversation...");
             const url = `http://localhost:3001/retrieve-conversations-id/${props.convoID}`;
             const res = await fetch(url);
             const res_json = await res.json();

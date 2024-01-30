@@ -15,9 +15,10 @@ function Transcriber(props)
     const [socketOpen, setSocketOpen] = useState(false);
     const [recording,setRecording] = useState(false);
     const [transcript,setTranscript] = useState('');
-    const { speaker, setSpeaker, 
-            input, setInput, 
-            messageId, setMessageId } = useContext(inputCtx);
+    const [blobUrl, setBlobUrl] = useState(null);
+    const { speaker, setSpeaker, input, 
+            setInput, messageId, setMessageId } = useContext(inputCtx);
+    const [playing, setPlaying] = useState(false);
 
     useEffect(() => {
         getApiKey();
@@ -57,8 +58,8 @@ function Transcriber(props)
     function getSocket() {
         const _deepgram = createClient(apiKey);
         const options = { model: "nova-2", smart_format: true, 
-                          language: 'fr', interim_results: true,
-                          endpointing: 10 }
+                          language: 'en-AU', interim_results: true,
+                          endpointing: 50 }
         const _socket = _deepgram.listen.live(options);
 
         _socket.on(LiveTranscriptionEvents.Open, () => {
@@ -77,13 +78,11 @@ function Transcriber(props)
     async function setupLink()
     {
         microphone.ondataavailable = (e) => {
-            console.log('sending data...');
             socket.send(e.data);
         }
 
         socket.on("Results", async (data) => {
             const _transcript = data.channel.alternatives[0].transcript;
-            console.log('data received');
 
             if (_transcript) {
                 setTranscript(_transcript);
@@ -92,13 +91,13 @@ function Transcriber(props)
             if (_transcript && data.speech_final)
             {
                 closeSocket();
-                await updateConversation(speaker,_transcript);
+                const query = {text:_transcript,audio:''};
+                await updateConversation(speaker,query);
                 setSpeaker('bonsoir');
                 setInput(_transcript);
                 const bonsoirResponse = await getResponse(_transcript);
                 await updateConversation('bonsoir',bonsoirResponse);
                 setSpeaker('human');
-                getSocket();
             }
         })
 
@@ -120,29 +119,40 @@ function Transcriber(props)
     const headers = {'Content-Type': 'application/json'};
     const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement})
     const options = {method:method,headers:headers,body:body};
-    const res = await fetch(url,options);
-    const res_json = await res.json();
+    await fetch(url,options);
     setInput(statement);
   }
-
+  
   // gets response from chatgpt
   async function getResponse(statement) {
     const url = 'http://localhost:3001/post-query/';
     const headers = {'Content-Type': 'application/json'};
-    const body = JSON.stringify({'query':statement})
+    const body = JSON.stringify({'query':statement,'parentMessageId':messageId})
     const options = {method:'post',headers:headers,body:body};
     const res = await fetch(url,options);
     const res_json = await res.json();
-    const res_text = res_json.myText;
-    return res_text;
+    setMessageId(res_json.id);
+    const audio = res_json.audio;
+    const audioArray = Object.values(audio);
+    console.log('printing audioArray...');
+    console.log(audioArray);
+    const uint8Array = new Uint8Array(audioArray);
+    console.log('printing uint8Array...');
+    console.log(uint8Array);
+    const blob = new Blob([uint8Array], { type: 'audio/wav' });
+    console.log('printing blob...');
+    console.log(blob);
+    setBlobUrl(URL.createObjectURL(blob));
+    const reply = {'text':res_json.text,'audio':blob}
+    return reply;
   }
 
     return (
         <div className='transcriber-wrapper'>
         <p className='transcript'>{transcript}</p>
         <div className='transcriber-buttons'>
-            <button onClick={() => getSocket()} disabled={recording}>Start recording</button>
-            <button onClick={() => closeSocket()} disabled={!recording}>Stop recording</button>
+            <button onClick={() => getSocket()} disabled={playing || speaker === 'bonsoir' || recording}>Start recording</button>
+            <audio autoPlay src={blobUrl} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}/>
         </div>
         </div>
     )
