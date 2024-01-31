@@ -133,7 +133,7 @@ app.get('/retrieve-conversations-id/:id', async (req,res) => {
   } catch (error)
   {
     console.log(`Error encountered while 
-                      retrieving conversation: ${error}`);
+                 retrieving conversation: ${error}`);
     res.send({success: false, convo:null});
   }
 })

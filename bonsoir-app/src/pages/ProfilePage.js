@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import NavBar from "../components/navigation/NavBar";
+import LeftNav from "../components/navigation/LeftNav";
 import "./styles/ProfilePage.css"
 
 function ProfilePage()
@@ -7,7 +7,7 @@ function ProfilePage()
     const { user } = useAuth0();
     return (
         <div className='profile-wrapper'>
-            <NavBar/>
+            <LeftNav/>
             <div>
                 <h1>Profile</h1>
                 <img src={user.picture}/>

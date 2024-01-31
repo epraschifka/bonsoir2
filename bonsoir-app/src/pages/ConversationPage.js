@@ -3,9 +3,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate } from 'react-router-dom'
 import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
-import NavBar from "../components/navigation/NavBar";
+import LeftNav from "../components/navigation/LeftNav";
 import Conversation from '../components/conversation/Conversation';
 import './styles/HomePage.css';
+import TopNav from '../components/navigation/TopNav';
 
 function ConversationPage(props)
 {
@@ -47,10 +48,13 @@ function ConversationPage(props)
     }
 
     return (
-        <div className='home-wrapper'>
-            <NavBar/>
-            <Conversation convoID={convoID}/>
-        </div>
+        <>
+            <TopNav/>
+            <div className='home-wrapper'>
+                <LeftNav/>
+                <Conversation convoID={convoID}/>
+            </div>
+        </>
     )
 }
 

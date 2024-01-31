@@ -101,6 +101,9 @@ function Transcriber(props)
         })
 
         await microphone.start(500);
+        const audioURL = process.env.PUBLIC_URL + '/sounds/mic_open.mp3';
+        const micStartAudio = new Audio(audioURL);
+        micStartAudio.play(); 
         setRecording(true);
     }
 
@@ -108,6 +111,9 @@ function Transcriber(props)
     {
         microphone.stop();
         socket.finish();
+        const audioURL = process.env.PUBLIC_URL + '/sounds/mic_close.mp3';
+        const micStopAudio = new Audio(audioURL);
+        micStopAudio.play(); 
         setRecording(false);
     }
 
@@ -157,9 +163,8 @@ function Transcriber(props)
         <div className='transcriber-wrapper'>
         <p className='transcript'>{transcript}</p>
         <div className='transcriber-buttons'>
-            <button onClick={() => getSocket()} disabled={playing || speaker === 'bonsoir' || recording}>Start recording</button>
+            <button onClick={() => getSocket()} disabled={playing || speaker === 'bonsoir' || recording}>{recording ? 'Recording' : 'Start recording'}</button>
             <audio autoPlay src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
-            <button onClick={() => {console.log(messageId)}}>messageId</button>
         </div>
         </div>
     )

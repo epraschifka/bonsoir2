@@ -1,0 +1,27 @@
+.topnav-wrapper {
+    display:flex;
+    height:10%;
+    width:100%;
+    justify-content:space-between;
+    color:crimson;
+}
+
+.topnav-left {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding-left:20px;
+}
+
+.topnav-left * {
+    padding:30px;
+    cursor:pointer;
+}
+
+.topnav-right {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    margin:0px;
+    padding:30px;
+}

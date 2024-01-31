@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import ConversationIcon from "./ConversationIcon";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
-import './styles/NavBar.css';
+import './styles/LeftNav.css';
 
-function NavBar()
+function LeftNav()
 {
     const { user } = useAuth0();
     const [convos, setConvos] = useState([]);
@@ -56,17 +56,12 @@ function NavBar()
         <nav className='navbar'>
             <div className='navbar-top-wrapper'>
                 <div onClick={() => createNewConvo('new conversation')} className='create-new-convo'>
-                    <p>+</p>
+                    <p>Create new conversation</p>
                 </div>
                 {printedConvos}
-            </div>
-            <div className="navbar-bottom-wrapper">
-                <NavLink to='/profile'>Profile</NavLink>
-                <NavLink to='/vocabulary'>Vocabulary</NavLink>
-                <LogoutButton/>
             </div>
         </nav>
     )
 }
 
-export default NavBar;
+export default LeftNav;

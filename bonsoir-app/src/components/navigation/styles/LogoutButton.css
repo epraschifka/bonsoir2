@@ -1,0 +1,13 @@
+button {
+    background-color:crimson;
+    color: white;
+    cursor:pointer;
+    padding:10px;
+    border-radius:5%;
+    box-shadow: 0px 0px 5px 0.15px grey;
+    border:none;
+}
+
+button:hover {
+    opacity: 90%;
+}
