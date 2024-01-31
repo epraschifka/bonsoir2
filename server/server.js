@@ -91,9 +91,10 @@ app.post('/post-query', async (req,res) => {
   const query = req.body.query;
   console.log(`received a request with query=${query}.`)
   const parentMessageId = req.body.parentMessageId;
-  const reply = await generateText(query,2);
+  console.log(`server-side: received query with id=${parentMessageId}`);
+  const reply = await generateText(query,parentMessageId);
   const reply_audio = await generateSpeech(reply.text,elevenLabsVoice,elevenLabsKey)
-  console.log(`Sending back a response = ${reply.text}...`);
+  console.log(`sending back a response with id=${reply.parentMessageId}`)
   res.send({'text': reply.text, 'id':reply.parentMessageId, 
                   'audio': reply_audio});
 });
@@ -145,8 +146,9 @@ app.post('/update-conversation', async (req,res) => {
     const speaker = req.body.speaker;
     const text = req.body.statement.text;
     const audio = req.body.statement.audio;
+    const messageId = req.body.messageId
     const filter = {_id: convoID};
-    const pushCommand = {$push: {statements: {speaker:speaker,text:text,audio:audio}}};
+    const pushCommand = {$push: {statements: {speaker:speaker,text:text,audio:audio,messageId:messageId}}};
     const updatedConvo = await conversations.updateOne(filter,pushCommand);
     const success = updatedConvo ? true : false
     res.send({success:success, message: "Conversation successfully updated!"});

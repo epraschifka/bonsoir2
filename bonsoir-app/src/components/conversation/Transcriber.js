@@ -13,12 +13,12 @@ function Transcriber(props)
     const [microphone,setMicrophone] = useState('');
     const [socket, setSocket] = useState('');
     const [socketOpen, setSocketOpen] = useState(false);
-    const [recording,setRecording] = useState(false);
     const [transcript,setTranscript] = useState('');
     const [blobUrl, setBlobUrl] = useState(null);
     const { speaker, setSpeaker, input, 
-            setInput, messageId, setMessageId } = useContext(inputCtx);
-    const [playing, setPlaying] = useState(false);
+            setInput, messageId, setMessageId,
+            playing, setPlaying,
+            recording, setRecording } = useContext(inputCtx);
 
     useEffect(() => {
         getApiKey();
@@ -93,11 +93,10 @@ function Transcriber(props)
                 closeSocket();
                 const query = {text:_transcript,audio:''};
                 await updateConversation(speaker,query);
-                setSpeaker('bonsoir');
                 setInput(_transcript);
                 const bonsoirResponse = await getResponse(_transcript);
                 await updateConversation('bonsoir',bonsoirResponse);
-                setSpeaker('human');
+                setTranscript('');
             }
         })
 
@@ -117,7 +116,8 @@ function Transcriber(props)
     const url = 'http://localhost:3001/update-conversation/';
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
-    const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement})
+    const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement, 'messageId': messageId})
+    console.log(`messageId=${messageId}`);
     const options = {method:method,headers:headers,body:body};
     await fetch(url,options);
     setInput(statement);
@@ -134,17 +134,23 @@ function Transcriber(props)
     setMessageId(res_json.id);
     const audio = res_json.audio;
     const audioArray = Object.values(audio);
-    console.log('printing audioArray...');
-    console.log(audioArray);
     const uint8Array = new Uint8Array(audioArray);
-    console.log('printing uint8Array...');
-    console.log(uint8Array);
     const blob = new Blob([uint8Array], { type: 'audio/wav' });
-    console.log('printing blob...');
-    console.log(blob);
     setBlobUrl(URL.createObjectURL(blob));
     const reply = {'text':res_json.text,'audio':blob}
     return reply;
+  }
+  
+  function startPlaying()
+  {
+    setPlaying(true);
+    setSpeaker('bonsoir');
+  }
+
+  function stopPlaying()
+  {
+    setPlaying(false);
+    setSpeaker('human');
   }
 
     return (
@@ -152,7 +158,8 @@ function Transcriber(props)
         <p className='transcript'>{transcript}</p>
         <div className='transcriber-buttons'>
             <button onClick={() => getSocket()} disabled={playing || speaker === 'bonsoir' || recording}>Start recording</button>
-            <audio autoPlay src={blobUrl} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}/>
+            <audio autoPlay src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
+            <button onClick={() => {console.log(messageId)}}>messageId</button>
         </div>
         </div>
     )
