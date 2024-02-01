@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Navigate } from 'react-router-dom'
 import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
 import LeftNav from "../components/navigation/LeftNav";
