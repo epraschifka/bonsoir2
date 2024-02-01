@@ -8,6 +8,8 @@
     cursor:pointer;
     text-decoration: none;
     color:black;
+    margin-bottom: 10px;
+    border-radius: 5%;
 }
 
 .focused:hover {

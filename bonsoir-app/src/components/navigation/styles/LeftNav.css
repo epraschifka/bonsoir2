@@ -3,13 +3,12 @@
     display:flex;
     flex-direction: column;
     min-width: 10%;
+    padding:1%;
+    overflow-y:auto;
 }
 
 .navbar-top-wrapper {
     flex-grow:85;
-    border: 1px solid red;
-    overflow-y:auto;
-    overflow-x: hidden;
 }
 
 .navbar-bottom-wrapper {
@@ -29,4 +28,9 @@
 
 .create-new-convo {
     text-align: center;
+}
+
+.create-new-convo:hover {
+    background-color:crimson;
+    color:white;
 }

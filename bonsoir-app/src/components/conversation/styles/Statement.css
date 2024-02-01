@@ -1,0 +1,14 @@
+.statement-wrapper {
+    margin-bottom:10px;
+    padding:1%;
+    background-color: crimson;
+}
+
+.bonsoir {
+    background-color:rgb(0, 0, 0);
+}
+
+.statement-text {
+    color:white;
+}
+

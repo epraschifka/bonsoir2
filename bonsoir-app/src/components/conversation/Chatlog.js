@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { inputCtx } from './Conversation.js';
+import Statement from './Statement.js';
 
 import './styles/Chatlog.css';
 
@@ -9,7 +10,7 @@ function Chatlog(props)
     const { input, setInput, messageId, setMessageId } = useContext(inputCtx);
     let chatlog_mapped = chatlog.map(statement => {
         return (<>
-                    <p>{statement.text}</p>
+                    <Statement text={statement.text} speaker={statement.speaker}/>
                 </>)
     })
 

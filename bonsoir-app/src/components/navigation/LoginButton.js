@@ -8,7 +8,7 @@ function LoginButton()
     async function handleLogin() {
         await loginWithRedirect({
             appState: {
-                returnTo: '/profile'
+                returnTo: '/home'
             }
         })
     }
