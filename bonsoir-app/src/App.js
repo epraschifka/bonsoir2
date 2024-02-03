@@ -5,7 +5,6 @@ import ErrorPage from './pages/ErrorPage';
 import { AuthGuard } from './pages/AuthGuard';
 import LoadingPage from './pages/LoadingPage';
 import StartPage from './pages/StartPage';
-import './App.css';
 
 function App() {
   return (

@@ -9,19 +9,17 @@ function ConversationIcon(props)
     
     function handleFocus()
     {
-        console.log('focused!');
         setClassName('conversation-icon-wrapper focused');
     }
     
     function handleBlur()
     {
-        console.log('unfocused :(');
         setClassName('conversation-icon-wrapper unfocused');
     }
 
     return (
         <NavLink to={linkString} className={className} onMouseEnter={handleFocus} onMouseLeave={handleBlur}>
-            <p onFocus={() => {console.log('hey hey')}}>{props.title}</p>
+            <p>{props.title}</p>
         </NavLink>
     )
 }

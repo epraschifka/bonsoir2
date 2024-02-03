@@ -1,7 +1,9 @@
 .statement-wrapper {
-    margin-bottom:10px;
-    padding:1%;
+    margin-bottom:1%;
+    padding:2%;
     background-color: crimson;
+    opacity:0;
+    animation: reveal-statement 1s ease-in-out forwards;
 }
 
 .bonsoir {
@@ -10,5 +12,15 @@
 
 .statement-text {
     color:white;
+}
+
+@keyframes reveal-statement {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 

@@ -1,10 +1,12 @@
+import TopNav from '../components/navigation/TopNav';
 import LoginButton from "../components/navigation/LoginButton";
+
 function WelcomePage()
 {
     return (
         <div>
-            <h1>Welcome!</h1>
-            <LoginButton/>
+            <TopNav/>
+            <div></div>
         </div>
     )
 }
