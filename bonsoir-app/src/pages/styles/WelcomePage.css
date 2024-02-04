@@ -1,37 +1,59 @@
+.intro.wrapper {
+    display:flex;
+    padding: 4rem;
+    background-color:rgb(248, 227, 227);
+}
+
+.intro.text {
+    flex-basis: 50%;
+    font-size: 2.5rem;
+}
+
+.emphasis {
+    color: crimson;
+}
+
+.intro.button {
+    padding:2rem;
+    font-size:2rem;
+    margin-top: 2rem;
+}
+
 .video {
     padding:2rem;
-    background-color:orchid
+    background-color:black;
+    flex-basis:50%;
+    box-shadow: 0px 0px 5px 5px;
+}
+
+.overlay {
+    position:absolute;
+    top:30%;
+    background-color:white;
+    padding:2rem;
 }
 
 .features {
     padding: 2rem;
-    display:flex;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    justify-content:center;
-    background-color:dodgerblue;
 }
 
-.upcoming-features {
+.about-me.wrapper {
     padding: 2rem;
-    background-color:green;
+    background-color:gold;
     display:flex;
-    gap:2rem;
     justify-content:center;
 }
 
-.about-me {
-    padding: 2rem;
-    background-color:gold
+.about-me.pic {
+    max-width:240px;
+    min-height:240px;
+    border-radius:50%;
 }
 
 .footer {
     padding: 2rem;
     background-color:brown;
-}
-
-@media screen and (max-width: 900px) {
-    .features {
-        flex-direction:column;
-        align-items: center;
-    }
 }

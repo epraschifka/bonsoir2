@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0rem 8rem 0rem 8rem;
-    position:static;
+    position:sticky;
     top:0;
     background-color:white;
 }
@@ -17,24 +17,31 @@
 
 .topnav.child h1 {
     font-weight:bold;
-    font-size:2em;
+    font-size:4rem;
 }
 
-.topnav.child h1, .topnav.child p {
+.topnav.child a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color:black;
+}
+
+.topnav.child h1, .topnav.child a {
     padding: 2rem 2rem 2rem 2rem;
     transition: color 0.25s ease-in-out;
 }
 
-.topnav.child h1:hover, .topnav.child p:hover {
+.topnav.child h1:hover, .topnav.child a:hover {
     cursor: pointer;
     color: var(--color-theme);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
     .topnav.wrapper {
         padding-bottom: 1rem;
         justify-content:center;
         flex-direction:column;
+        position:static;
     }
 
     .topnav.child {

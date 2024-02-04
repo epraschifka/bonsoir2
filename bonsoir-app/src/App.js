@@ -9,8 +9,7 @@ import StartPage from './pages/StartPage';
 function App() {
   return (
     <Routes>
-      <Route exact path='/welcome' element={<WelcomePage/>}></Route>
-      <Route exact path='/' element={<ConversationPage/>}/>
+      <Route exact path='/' element={<WelcomePage/>}/>
       <Route exact path='/home' element={<AuthGuard component={StartPage}/>}></Route>
       <Route exact path='/conversation/:convoID' element={<AuthGuard component={ConversationPage}/>}></Route>
       <Route path='*' element={<ErrorPage/>}/>
