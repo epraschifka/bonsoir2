@@ -12,8 +12,6 @@ function TopNav()
             <div class='topnav child'>
                 <h1>Bonsoir</h1>
                 <a href='#features'>Features</a>
-                <a href='#about'>About</a>
-                <a href='#contact'>Contact</a>
             </div>
             <div class='topnav child'>
                 {button}

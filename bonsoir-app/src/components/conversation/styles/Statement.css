@@ -1,9 +1,10 @@
 .statement-wrapper {
     margin-bottom:1%;
-    padding:2%;
+    padding:1rem;
     background-color: crimson;
     opacity:0;
     animation: reveal-statement 1s ease-in-out forwards;
+    box-shadoW: 0px 0px 3px 1px;
 }
 
 .bonsoir {

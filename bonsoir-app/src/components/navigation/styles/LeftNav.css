@@ -1,3 +1,5 @@
 .leftnav.wrapper {
     padding: 1rem;
+    background-color:crimson;
+    overflow:auto;
 }
