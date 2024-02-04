@@ -50,8 +50,8 @@ function ConversationPage(props)
         <>
             <TopNav/>
             <div className='home-wrapper'>
-                <LeftNav/>
-                <Conversation convoID={convoID}/>
+                {/*<LeftNav/>
+                <Conversation convoID={convoID}/>*/}
             </div>
         </>
     )

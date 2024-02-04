@@ -11,7 +11,9 @@ function TopNav()
         <nav class='topnav wrapper'>
             <div class='topnav child'>
                 <h1>Bonsoir</h1>
+                <p>Features</p>
                 <p>About</p>
+                <p>Contact</p>
             </div>
             <div class='topnav child'>
                 {button}

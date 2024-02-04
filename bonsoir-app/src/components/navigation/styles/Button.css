@@ -1,5 +1,5 @@
 button {
-    background-color:crimson;
+    background-color:var(--color-theme);
     color: white;
     cursor:pointer;
     padding: 0.8em 1em 0.8em 1em;

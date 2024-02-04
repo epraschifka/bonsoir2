@@ -1,26 +1,6 @@
-body, #root {
-  width:100vw;
-  height:100vh;
-}
-
-* {
+:root * {
   margin: 0;
-  padding: 0;
-}
-
-:root {
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  overflow:hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body * {
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
+  --color-theme: crimson;
+  font-family:sans-serif;
 }

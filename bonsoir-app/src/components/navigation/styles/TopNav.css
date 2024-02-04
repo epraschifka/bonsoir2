@@ -1,20 +1,23 @@
-:root {
-    box-sizing: border-box;
-    --color-theme: crimson;
-}
-
 .topnav.wrapper {
-    box-shadow: 0px 1px 5px 0.1px black;
+    box-shadow: 0px 1px 5px 0.1px rgb(211, 182, 182);
     font-family: sans-serif;
     display: flex;
     justify-content: space-between;
     padding: 0rem 8rem 0rem 8rem;
+    position:static;
+    top:0;
+    background-color:white;
 }
 
 .topnav.child {
     display: flex;
     align-items: center;
     justify-content:center;
+}
+
+.topnav.child h1 {
+    font-weight:bold;
+    font-size:2em;
 }
 
 .topnav.child h1, .topnav.child p {
@@ -27,14 +30,15 @@
     color: var(--color-theme);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
     .topnav.wrapper {
-        padding-bottom: 2rem;
-        flex-wrap: wrap;
+        padding-bottom: 1rem;
         justify-content:center;
+        flex-direction:column;
     }
 
     .topnav.child {
-        flex-wrap:wrap;
+        flex-direction:column;
+        padding: 0rem 2rem 1rem 2rem;
     }
 }

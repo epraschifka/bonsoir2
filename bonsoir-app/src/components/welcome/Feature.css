@@ -1,0 +1,22 @@
+.feature.wrapper {
+    display:flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.feature.image {
+    width:300px;
+    height:50%;
+}
+
+.feature.text {
+    background-color:black;
+    color:white;
+    padding: 2rem 2rem 4rem 2rem;
+    height:50%;
+}
+
+.feature.wrapper:hover {
+    box-shadow: 0px 0px 20px 0.15px;
+}

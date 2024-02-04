@@ -8,11 +8,11 @@ function StartPage()
         <>
             <TopNav/>
             <div className='home-wrapper'>
-                <LeftNav/>
+                {/*<LeftNav/>
                 <div className='startpage-text'>
                     Create a new conversation or select an existing
                     conversation to get started.
-                </div>
+                </div>*/}
             </div>
         </>
     )

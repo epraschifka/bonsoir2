@@ -53,13 +53,11 @@ function LeftNav()
     }
 
     return (
-        <nav className='navbar'>
-            <div className='navbar-top-wrapper'>
+        <nav className='leftnav wrapper'>
                 <div onClick={() => createNewConvo('new conversation')} className='create-new-convo'>
                     <p>Create new conversation</p>
                 </div>
                 {printedConvos}
-            </div>
         </nav>
     )
 }
