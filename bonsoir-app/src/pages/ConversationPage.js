@@ -4,8 +4,8 @@ import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
 import LeftNav from "../components/navigation/LeftNav";
 import Conversation from '../components/conversation/Conversation';
-import './styles/HomePage.css';
 import TopNav from '../components/navigation/TopNav';
+import './styles/ConversationPage.css';
 
 function ConversationPage(props)
 {
@@ -49,7 +49,7 @@ function ConversationPage(props)
     return (
         <>
             <TopNav/>
-            <div className='home-wrapper'>
+            <div className='conversation-page wrapper'>
                 <LeftNav/>
                 <Conversation convoID={convoID}/>
             </div>
