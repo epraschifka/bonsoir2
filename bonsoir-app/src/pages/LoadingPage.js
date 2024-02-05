@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import ErrorPage from './ErrorPage';
 import LeftNav from "../components/navigation/LeftNav";
-import Conversation from '../components/conversation/Conversation';
 import './styles/HomePage.css';
 import TopNav from '../components/navigation/TopNav';
+import Call from '../components/conversation/Call';
+import Chatlog from '../components/conversation/Chatlog';
+import Transcriber from '../components/conversation/Transcriber';
 
 function LoadingPage(props)
 {
@@ -13,7 +15,9 @@ function LoadingPage(props)
             <TopNav/>
             <div className='home-wrapper'>
                 <LeftNav/>
-                <Conversation convoID={props.convoID}/>
+                <Call/>
+                <Chatlog/>
+                <Transcriber/>                                
             </div>
         </>
     )

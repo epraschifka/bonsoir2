@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { inputCtx } from './Conversation.js';
+import { inputCtx } from '../../pages/ConversationPage.js';
 import Statement from './Statement.js';
 
 import './styles/Chatlog.css';

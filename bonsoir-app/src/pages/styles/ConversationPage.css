@@ -1,4 +1,7 @@
 .conversation-page.wrapper {
     display:flex;
     background-color:lightgreen;
+    padding: 2rem;
+    max-height:calc(100vh - var(--topnav-height));
 }
+

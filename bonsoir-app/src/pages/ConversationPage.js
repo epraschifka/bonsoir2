@@ -4,13 +4,12 @@ import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
 import TopNav from '../components/navigation/TopNav';
 import LeftNav from "../components/navigation/LeftNav";
-import Conversation from '../components/conversation/Conversation';
 import Call from '../components/conversation/Call';
 import Chatlog from '../components/conversation/Chatlog';
 import Transcriber from '../components/conversation/Transcriber';
 import './styles/ConversationPage.css';
 
-export const inputCtx = createContext();
+export const inputCtx = createContext({speaker:''});
 
 function ConversationPage(props)
 {
@@ -61,7 +60,16 @@ function ConversationPage(props)
             <TopNav/>
             <div className='conversation-page wrapper'>
                 <LeftNav/>
-                <Conversation convoID={convoID}/>
+                <inputCtx.Provider value={{input,setInput,
+                                          speaker,setSpeaker,
+                                          messageId,setMessageId,
+                                          playing,setPlaying,
+                                          recording,setRecording}} 
+                                    convoID={props.convoID}>
+                    <Call/>
+                    <Chatlog/>
+                    <Transcriber/>
+                </inputCtx.Provider>
             </div>
         </>
     )

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { LiveTranscriptionEvents,createClient } from '@deepgram/sdk';
-import { inputCtx } from './Conversation.js';
+import { inputCtx } from '../../pages/ConversationPage.js';
 import './styles/Transcriber.css'
 
 // on initial render -> get api key and user microphone

@@ -19,7 +19,7 @@ function WelcomePage()
                     </NavLink>
                 </div>
                 <video controls className='intro video' width='100%' height='500px'>
-                    <source src="https://file-examples.com/storage/fec6b14e8365bdea89d5ee7/2017/04/file_example_MP4_480_1_5MG.mp4" type="video/mp4" width='200px'/>
+                    <source src="https://samplelib.com/lib/preview/mp4/sample-30s.mp4" type="video/mp4" width='200px'/>
                 </video>
             </div>
             </section>

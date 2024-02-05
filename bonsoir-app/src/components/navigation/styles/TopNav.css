@@ -1,3 +1,7 @@
+:root {
+    --topnav-height: 100px;
+}
+
 .topnav.wrapper {
     box-shadow: 0px 1px 5px 0.1px rgb(211, 182, 182);
     font-family: sans-serif;
