@@ -1,6 +1,6 @@
 .intro.wrapper {
     display:flex;
-    padding: 4rem;
+    padding: 4rem 4rem 0rem 4rem;
     background-color:rgb(248, 227, 227);
 }
 
@@ -33,21 +33,21 @@
     padding:2rem;
 }
 
-.features {
-    padding: 2rem;
+.page.header {
+    padding: 8rem 4rem 0rem 4rem;
+    font-size: 3rem;
+    display:flex;
+    align-items: center;
+}
+
+.features.grid {
+    padding: 4rem 2rem 4rem 2rem;
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-.about-me.wrapper {
-    padding: 2rem;
-    background-color:gold;
-    display:flex;
-    justify-content:center;
-}
-
-.about-me.pic {
+.about.pic {
     max-width:240px;
     min-height:240px;
     border-radius:50%;
@@ -55,5 +55,12 @@
 
 .footer {
     padding: 2rem;
-    background-color:brown;
+    background-color:crimson;
+}
+
+@media screen and (max-width: 800px)
+{
+    :root {
+        font-size:smaller;
+    }
 }

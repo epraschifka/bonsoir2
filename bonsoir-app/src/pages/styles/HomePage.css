@@ -1,4 +1,7 @@
 .home-wrapper {
     display:flex;
-    background-color:lightgreen;
+}
+
+.topnav.wrapper {
+    position:static;
 }

@@ -1,19 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
-import LeftNav from "../components/navigation/LeftNav";
-import Conversation from '../components/conversation/Conversation';
-import './styles/HomePage.css';
 import TopNav from '../components/navigation/TopNav';
+import LeftNav from "../components/navigation/LeftNav";
+import Call from '../components/conversation/Call';
+import Chatlog from '../components/conversation/Chatlog';
+import Transcriber from '../components/conversation/Transcriber';
+import './styles/ConversationPage.css';
+
+export const inputCtx = createContext({speaker:''});
 
 function ConversationPage(props)
 {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const convoID = props.convoID;
-
     const [success, setSuccess] = useState();
     const [pageLoading,setPageLoading] = useState(true);
+    
+    const [input, setInput] = useState('First input');
+    const [speaker, setSpeaker] = useState('human');
+    const [messageId, setMessageId] = useState('');
+    const [playing, setPlaying] = useState(false);
+    const [recording, setRecording] = useState(false);
 
     // get the conversation corresponding to the convoID
     useEffect(() => {
@@ -49,9 +58,18 @@ function ConversationPage(props)
     return (
         <>
             <TopNav/>
-            <div className='home-wrapper'>
+            <div className='conversation-page wrapper'>
                 <LeftNav/>
-                <Conversation convoID={convoID}/>
+                <inputCtx.Provider value={{input,setInput,
+                                          speaker,setSpeaker,
+                                          messageId,setMessageId,
+                                          playing,setPlaying,
+                                          recording,setRecording}} 
+                                    convoID={props.convoID}>
+                    <Call/>
+                    <Chatlog/>
+                    <Transcriber/>
+                </inputCtx.Provider>
             </div>
         </>
     )

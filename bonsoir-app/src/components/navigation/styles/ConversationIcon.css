@@ -1,48 +1,9 @@
-.conversation-icon-wrapper, .create-new-convo {
-    border: 1px solid black;
-    width:100%;
-    height: 25%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
+.leftnav.child {
     cursor:pointer;
     text-decoration: none;
     color:white;
-    margin-bottom: 10px;
-    border-radius: 5%;
-    background-color:black;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    opacity:1;
-}
-
-.focused:hover {
+    display:block;
+    padding:2em;
+    border: 1px solid black;
     background-color:crimson;
-    color:white;
 }
-
-.unfocused:hover {
-    animation: icon-hover-off 1s ease-in-out 0.1s;
-}
-
-
-
-@keyframes icon-hover{
-    0% {
-        background-color:white;
-        color:black;
-    }
-    100% {
-        background-color:crimson;
-        color:white;
-    }
-}
-
-@keyframes icon-hover-off {
-    0% {
-        background-color:crimson;
-    }
-    100% {
-        background-color:white;
-    }
-}
-

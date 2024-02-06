@@ -7,7 +7,7 @@ function StartPage()
     return (
         <>
             <TopNav/>
-            <div className='home-wrapper'>
+            <div className='startpage wrapper'>
                 <LeftNav/>
                 <div className='startpage-text'>
                     Create a new conversation or select an existing

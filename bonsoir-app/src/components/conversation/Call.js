@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { inputCtx } from './Conversation.js';
+import { inputCtx } from '../../pages/ConversationPage.js';
 import { useContext } from 'react';
 import './styles/Call.css';
 

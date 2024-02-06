@@ -1,3 +1,7 @@
+:root {
+    --topnav-height: 100px;
+}
+
 .topnav.wrapper {
     box-shadow: 0px 1px 5px 0.1px rgb(211, 182, 182);
     font-family: sans-serif;
@@ -17,11 +21,11 @@
 
 .topnav.child h1 {
     font-weight:bold;
-    font-size:2.5rem;
+    font-size:1.5rem;
 }
 
 .topnav.child a {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-decoration: none;
     color:black;
 }
@@ -34,6 +38,11 @@
 .topnav.child h1:hover, .topnav.child a:hover {
     cursor: pointer;
     color: var(--color-theme);
+}
+
+.topnav.child button {
+    font-size:1em;
+    padding: 1rem;
 }
 
 @media screen and (max-width: 1000px) {
