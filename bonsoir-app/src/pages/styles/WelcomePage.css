@@ -57,10 +57,3 @@
     padding: 2rem;
     background-color:crimson;
 }
-
-@media screen and (max-width: 800px)
-{
-    :root {
-        font-size:smaller;
-    }
-}

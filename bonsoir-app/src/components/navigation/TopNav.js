@@ -2,21 +2,45 @@ import { useAuth0 } from '@auth0/auth0-react';
 import './styles/TopNav.css';
 import LogoutButton from "./LogoutButton";
 import LoginButton from './LoginButton';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 function TopNav()
 {
     const { isAuthenticated } = useAuth0();
-    const button = isAuthenticated ? <LogoutButton/> : <LoginButton/>;
+    const [classes, setClasses] = useState('dropdown')
+    const logButton = isAuthenticated ? <LogoutButton/> : <LoginButton/>;
+
+    function toggleDrop() {
+        if (classes === 'dropdown open')
+        {
+            setClasses('dropdown');
+        }
+        else
+        {
+            setClasses('dropdown open');
+        }
+    }
+
     return (
-        <nav class='topnav wrapper'>
-            <div class='topnav child'>
-                <h1>Bonsoir</h1>
+        <div className='topnav-wrapper'>
+            <nav className='topnav'>
+                <div className='topnav'>
+                    <a href='#home'>Bonsoir</a>
+                    <a href='#features'>Features</a>
+                </div>
+                <div>
+                    <button className='reveal' onClick={toggleDrop}>
+                        <FontAwesomeIcon icon={faBars} />
+                    </button>
+                    {logButton}
+                </div>
+            </nav>
+            <div className={classes}>
                 <a href='#features'>Features</a>
             </div>
-            <div class='topnav child'>
-                {button}
-            </div>
-        </nav>
+        </div>
     )
 }
 

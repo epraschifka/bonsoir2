@@ -15,7 +15,7 @@ function LoginButton()
     }
 
     return (
-        <button onClick={handleLogin}>Login</button>
+        <button class='login' onClick={handleLogin}>Login</button>
     )
     
 }
