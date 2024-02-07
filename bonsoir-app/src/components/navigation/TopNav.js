@@ -38,7 +38,7 @@ function TopNav()
                 </div>
             </nav>
             <div className={classes}>
-                <a href='#features'>Features</a>
+                <a href='#features' onClick={toggleDrop}>Features</a>
             </div>
         </div>
     )

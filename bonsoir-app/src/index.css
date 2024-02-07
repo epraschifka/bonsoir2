@@ -4,3 +4,7 @@
   --color-theme: crimson;
   font-family:sans-serif;
 }
+
+.emphasis {
+  color: crimson;
+}

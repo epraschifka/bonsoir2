@@ -18,12 +18,19 @@
     align-items: center;
     text-decoration: none;
     color:black;
-    margin-left:4rem;
+    margin-left:8rem;
+    font-size:1.5rem;
+    transition: color 0.4s ease-in-out;
 }
 
 .topnav a:first-child {
-    font-size:2.5rem;
+    font-size:3rem;
     font-weight: bold;
+    margin-left:4rem;
+}
+
+.topnav a:hover {
+    color:crimson;
 }
 
 .reveal {
@@ -41,10 +48,16 @@
     padding: 3rem 0rem 3rem 4rem;
     background-color:white;
     border: 1px dotted crimson;
+    font-size:1.5rem;
+}
+
+.dropdown a:hover {
+    background-color:crimson;
+    color:white;
 }
 
 
-@media screen and (max-width:700px) {
+@media screen and (max-width:800px) {
     .topnav a:not(:first-child) {
         display:none;
     }
