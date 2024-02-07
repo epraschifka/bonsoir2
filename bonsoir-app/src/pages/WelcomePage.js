@@ -8,7 +8,7 @@ function WelcomePage()
     return (
         <>
             <TopNav/>
-            <section id='intro'>
+            <section id='home'>
                 <div className='intro-wrapper'>
                     <div className='intro-text'>
                         <h1>An <span class='emphasis'>intelligent</span> virtual assistant with <span class='emphasis'>speech recognition</span> and <span class='emphasis'>synthesis</span></h1>

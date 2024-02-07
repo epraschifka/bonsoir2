@@ -7,7 +7,7 @@ function ConversationIcon(props)
     const linkString = '/conversation/' + props.id;
 
     return (
-        <NavLink to={linkString} className='leftnav child'>{props.title}</NavLink>
+        <NavLink to={linkString} className='leftnav-child'>{props.title}</NavLink>
     )
 }
 

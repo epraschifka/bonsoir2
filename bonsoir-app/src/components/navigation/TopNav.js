@@ -12,6 +12,10 @@ function TopNav()
     const [classes, setClasses] = useState('dropdown')
     const logButton = isAuthenticated ? <LogoutButton/> : <LoginButton/>;
 
+    function scrollTop() {
+        window.scrollTo(0, 0);
+    }
+
     function toggleDrop() {
         if (classes === 'dropdown open')
         {
@@ -27,8 +31,8 @@ function TopNav()
         <div className='topnav-wrapper'>
             <nav className='topnav'>
                 <div className='topnav'>
-                    <a href='#home'>Bonsoir</a>
-                    <a href='#features'>Features</a>
+                    <a href='#' onClick={scrollTop}>Bonsoir</a>
+                    <a href='http://localhost:3000/#features'>Features</a>
                 </div>
                 <div>
                     <button className='reveal' onClick={toggleDrop}>
@@ -38,7 +42,7 @@ function TopNav()
                 </div>
             </nav>
             <div className={classes}>
-                <a href='#features' onClick={toggleDrop}>Features</a>
+                <a href='http://localhost:3000/#features' onClick={toggleDrop}>Features</a>
             </div>
         </div>
     )

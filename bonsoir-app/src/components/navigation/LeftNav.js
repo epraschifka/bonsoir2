@@ -51,7 +51,7 @@ function LeftNav()
 
     return (
         <nav className='leftnav wrapper'>
-                <div onClick={() => createNewConvo('new conversation')} className='leftnav child'>
+                <div onClick={() => createNewConvo('new conversation')} className='leftnav-child'>
                     Create new conversation
                 </div>
                 {printedConvos}
