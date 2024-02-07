@@ -14,7 +14,6 @@ export const inputCtx = createContext({speaker:''});
 function ConversationPage(props)
 {
     const { user, isAuthenticated, isLoading } = useAuth0();
-    const convoID = props.convoID;
     const [success, setSuccess] = useState();
     const [pageLoading,setPageLoading] = useState(true);
     
@@ -32,7 +31,7 @@ function ConversationPage(props)
     async function retrieveConvo()
     {
         const url = 'http://localhost:3001/retrieve-conversations-id/'
-                        + convoID;
+                        + props.convoID;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
         const options = {method:method,headers:headers};
@@ -58,7 +57,7 @@ function ConversationPage(props)
     return (
         <>
             <TopNav/>
-            <div className='conversation-page wrapper'>
+            <div className='conversation-page-wrapper'>
                 <LeftNav/>
                 <inputCtx.Provider value={{input,setInput,
                                           speaker,setSpeaker,
@@ -67,8 +66,10 @@ function ConversationPage(props)
                                           recording,setRecording}} 
                                     convoID={props.convoID}>
                     <Call/>
-                    <Chatlog/>
-                    <Transcriber/>
+                    <div className='chatlog-transcriber-wrapper'>
+                        <Chatlog convoID = {props.convoID}/>
+                        <Transcriber convoID = {props.convoID}/>
+                    </div>
                 </inputCtx.Provider>
             </div>
         </>

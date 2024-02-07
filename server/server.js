@@ -145,10 +145,10 @@ app.post('/update-conversation', async (req,res) => {
     const convoID = new ObjectId(req.body.convoID);
     const speaker = req.body.speaker;
     const text = req.body.statement.text;
-    const audio = req.body.statement.audio;
     const messageId = req.body.messageId
     const filter = {_id: convoID};
-    const pushCommand = {$push: {statements: {speaker:speaker,text:text,audio:audio,messageId:messageId}}};
+    console.log(`convoID=${convoID},speaker=${speaker},text=${text},messageId=${messageId}`);
+    const pushCommand = {$push: {statements: {speaker:speaker,text:text,messageId:messageId}}};
     const updatedConvo = await conversations.updateOne(filter,pushCommand);
     const success = updatedConvo ? true : false
     res.send({success:success, message: "Conversation successfully updated!"});

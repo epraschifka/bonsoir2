@@ -91,7 +91,7 @@ function Transcriber(props)
             if (_transcript && data.speech_final)
             {
                 closeSocket();
-                const query = {text:_transcript,audio:''};
+                const query = {text:_transcript};
                 await updateConversation(speaker,query);
                 setInput(_transcript);
                 const bonsoirResponse = await getResponse(_transcript);
@@ -122,8 +122,9 @@ function Transcriber(props)
     const url = 'http://localhost:3001/update-conversation/';
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
+    console.log("printing statement...");
+    console.log(statement);
     const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement, 'messageId': messageId})
-    console.log(`messageId=${messageId}`);
     const options = {method:method,headers:headers,body:body};
     await fetch(url,options);
     setInput(statement);

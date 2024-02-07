@@ -1,22 +1,18 @@
 .transcriber-wrapper {
-    height:20%;
     display:flex;
+    border:5px solid black;
+    height:30%;
 }
 
 .transcript {
-    border:2px solid purple;
-    display:flex;
-    width:80%;
-    margin:0px;
-    justify-content:center;
-    align-items: center;
-    font-size:30px;
+    width:70%;
+    border:5px solid black;
 }
 
 .transcriber-buttons {
-    border:2px solid cyan;
+    width:30%;
     display:flex;
-    align-items:center;
-    justify-content: center;
-    width:20%;
+    justify-content:center;
+    align-items: center;
+    border:5px solid black;
 }

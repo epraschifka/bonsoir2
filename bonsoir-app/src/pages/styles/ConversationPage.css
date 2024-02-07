@@ -1,7 +1,10 @@
-.conversation-page.wrapper {
+.conversation-page-wrapper {
     display:flex;
-    background-color:lightgreen;
-    padding: 2rem;
-    max-height:calc(100vh - var(--topnav-height));
+    max-height:calc(100vh - 120px);
+    border:5px solid pink;
+}
+
+.chatlog-transcriber-wrapper {
+    width:50%;
 }
 
