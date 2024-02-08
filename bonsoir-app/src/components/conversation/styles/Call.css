@@ -2,6 +2,9 @@
     display:flex;
     width:50%;
     flex-direction: column;
+    padding:1rem;
+    margin-left:1rem;
+    border: solid black;
 }
 
 .call-window {
@@ -10,11 +13,13 @@
     justify-content: center;
     align-items: center;
     background-color:black;
+    margin-bottom: 1rem;
 }
 
 .call-participants {
     display:flex;
     justify-content:center;
+    background-color:whitesmoke;
 }
 
 .bonsoir-pic {
@@ -23,6 +28,10 @@
 
 .user-pic {
     width:10%;
+}
+
+.thinking {
+    color:white;
 }
 
 .participant {
@@ -34,5 +43,5 @@
 }
 
 .recording, .playing {
-    border:3px solid crimson;
+    border:5px solid crimson;
 }

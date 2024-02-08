@@ -1,15 +1,41 @@
-.leftnav-child {
-    cursor:pointer;
-    text-decoration: none;
-    color:white;
-    display:block;
-    padding:2em;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+.conversation-icon-wrapper {
+    display:flex;
     background-color:crimson;
-    transition: background-color 0.5s, color 0.5s;
 }
 
-.leftnav-child:hover {
-    background-color:white;
-    color:black;
+.conversation-icon-wrapper a {
+    text-decoration: none;
+    color:white;
+    padding:2rem;
+    width:80%;
+    font-size:1.2rem;
+    transition: background-color 0.4s ease-in-out;
+}
+
+.conversation-icon-wrapper a:hover {
+    background-color:rgb(168, 16, 47);
+}
+
+.conversation-icon-buttons {
+    width:20%;
+}
+
+.conversation-icon-buttons button {
+    border:none;
+    background-color:crimson;
+    cursor: pointer;
+    font-size:1rem;
+    color:white;
+    padding:1rem;
+    width:100%;
+    transition: background-color 0.4s ease-in-out;
+    height:50%;
+}
+
+.conversation-icon-buttons button:hover {
+    background-color:rgb(168, 16, 47);
+}
+
+.conversation-icon-buttons button:active {
+    transform: translate(1px,1px);
 }

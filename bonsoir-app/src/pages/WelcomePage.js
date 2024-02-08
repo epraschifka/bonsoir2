@@ -13,7 +13,7 @@ function WelcomePage()
                     <div className='intro-text'>
                         <h1>An <span class='emphasis'>intelligent</span> virtual assistant with <span class='emphasis'>speech recognition</span> and <span class='emphasis'>synthesis</span></h1>
                         <NavLink to='http://localhost:3000/home'>
-                            <button className='intro-button'>
+                            <button className='intro-button btn'>
                                 Get started
                             </button>
                         </NavLink>

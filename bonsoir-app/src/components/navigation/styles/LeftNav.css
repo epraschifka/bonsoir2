@@ -1,5 +1,46 @@
 .leftnav.wrapper {
     background-color:white;
     overflow:auto;
-    height:calc(100vh - 120px);
+    margin-left:1rem;
+}
+
+.new-conversation-wrapper {
+    display:flex;
+    flex-direction:row;
+    color:white;
+    background-color:crimson;
+    transition: color 0.4s ease-in-out;
+    transition: background-color 0.4s ease-in-out;
+}
+
+.new-conversation-wrapper:hover {
+    color: black;
+    background-color:white;
+
+    .new-conversation-button {
+        color:black;
+        background-color:white;
+    }
+}
+
+.new-conversation-wrapper:active {
+    transform: translate(1px,1px);
+}
+
+.new-conversation-text {
+    padding:2rem;
+    font-size:1.5rem;
+    width:70%;
+    cursor: pointer;
+}
+
+.new-conversation-button {
+    border:none;
+    cursor: pointer;
+    font-size:4rem;
+    color:white;
+    width:30%;
+    background-color:crimson;
+    transition: color 0.4s ease-in-out;
+    transition: background-color 0.4s ease-in-out;
 }

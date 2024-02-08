@@ -51,8 +51,9 @@ function LeftNav()
 
     return (
         <nav className='leftnav wrapper'>
-                <div onClick={() => createNewConvo('new conversation')} className='leftnav-child'>
-                    Create new conversation
+                <div className='new-conversation-wrapper' onClick={() => createNewConvo('new conversation')}>
+                    <p className='new-conversation-text'>New conversation</p>
+                    <button className='new-conversation-button'>+</button>
                 </div>
                 {printedConvos}
         </nav>

@@ -22,6 +22,7 @@ function ConversationPage(props)
     const [messageId, setMessageId] = useState('');
     const [playing, setPlaying] = useState(false);
     const [recording, setRecording] = useState(false);
+    const [thinking, setThinking] = useState(false);
 
     // get the conversation corresponding to the convoID
     useEffect(() => {
@@ -63,7 +64,8 @@ function ConversationPage(props)
                                           speaker,setSpeaker,
                                           messageId,setMessageId,
                                           playing,setPlaying,
-                                          recording,setRecording}} 
+                                          recording,setRecording,
+                                          thinking, setThinking}} 
                                     convoID={props.convoID}>
                     <Call/>
                     <div className='chatlog-transcriber-wrapper'>

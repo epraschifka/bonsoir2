@@ -1,4 +1,4 @@
-button {
+.btn {
     background-color:var(--color-theme);
     color: white;
     cursor:pointer;
@@ -12,12 +12,17 @@ button {
     transition: background-color 0.4s ease-in-out;
 }
 
-button:hover {
-    opacity: 90%;
+.btn:hover {
     color: black;
     background-color:white;
 }
 
-button:active {
+.btn:active {
     box-shadow: 0px 0px 9px 0.1px grey;
+}
+
+.btn:disabled {
+    color: black;
+    background-color:white;
+    cursor: not-allowed;
 }

@@ -18,7 +18,8 @@ function Transcriber(props)
     const { speaker, setSpeaker, input, 
             setInput, messageId, setMessageId,
             playing, setPlaying,
-            recording, setRecording } = useContext(inputCtx);
+            recording, setRecording,
+            thinking, setThinking } = useContext(inputCtx);
 
     useEffect(() => {
         getApiKey();
@@ -91,6 +92,7 @@ function Transcriber(props)
             if (_transcript && data.speech_final)
             {
                 closeSocket();
+                setThinking(true);
                 const query = {text:_transcript, id: messageId};
                 await updateConversation(speaker,query);
                 setInput(_transcript);
@@ -143,6 +145,7 @@ function Transcriber(props)
     const uint8Array = new Uint8Array(audioArray);
     const blob = new Blob([uint8Array], { type: 'audio/wav' });
     setBlobUrl(URL.createObjectURL(blob));
+    setThinking(false);
     const reply = {'text':res_json.text,'audio':blob, 'id': res_json.id};
     return reply;
   }
@@ -163,7 +166,7 @@ function Transcriber(props)
         <div className='transcriber-wrapper'>
         <p className='transcript'>{transcript}</p>
         <div className='transcriber-buttons'>
-            <button onClick={() => getSocket()} disabled={playing || speaker === 'bonsoir' || recording}>{recording ? 'Recording' : 'Start recording'}</button>
+            <button className='btn' onClick={() => getSocket()} disabled={thinking || playing || speaker === 'bonsoir' || recording}>{recording ? 'Recording' : 'Start recording'}</button>
             <audio autoPlay src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
         </div>
         </div>
