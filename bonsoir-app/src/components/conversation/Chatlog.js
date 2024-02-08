@@ -25,6 +25,7 @@ function Chatlog(props)
                 const lastStatement = statements[statements.length-1];
                 if (statements.length > 0)
                 {
+                    console.log(`setting messageId to ${lastStatement.messageId}...`);
                     setMessageId(lastStatement.messageId);
                 }
                 setChatlog(statements);

@@ -1,5 +1,7 @@
 .chatlog-wrapper {
     overflow:auto;
     height:70%;
-    border:5px solid black
+    background-color:whitesmoke;
+    margin-left:1rem;
+    margin-right:1rem;
 }

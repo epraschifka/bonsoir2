@@ -1,13 +1,11 @@
 .call-wrapper {
     display:flex;
     width:50%;
-    border:1px solid black;
     flex-direction: column;
 }
 
 .call-window {
     height:100%;
-    border:1px solid black;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +13,6 @@
 }
 
 .call-participants {
-    border:1px solid black;
     display:flex;
     justify-content:center;
 }

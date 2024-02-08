@@ -1,5 +1,4 @@
 .conversation-wrapper {
-    border: 1px solid black;
     width:100%;
     display:flex;
 }
@@ -8,5 +7,4 @@
     display: flex;
     width:50%;
     flex-direction: column;
-    border:1px solid red;
 }

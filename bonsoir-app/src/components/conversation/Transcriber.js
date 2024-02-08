@@ -91,7 +91,7 @@ function Transcriber(props)
             if (_transcript && data.speech_final)
             {
                 closeSocket();
-                const query = {text:_transcript};
+                const query = {text:_transcript, id: messageId};
                 await updateConversation(speaker,query);
                 setInput(_transcript);
                 const bonsoirResponse = await getResponse(_transcript);
@@ -122,9 +122,7 @@ function Transcriber(props)
     const url = 'http://localhost:3001/update-conversation/';
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
-    console.log("printing statement...");
-    console.log(statement);
-    const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement, 'messageId': messageId})
+    const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement, 'messageId': statement.id})
     const options = {method:method,headers:headers,body:body};
     await fetch(url,options);
     setInput(statement);
@@ -138,13 +136,14 @@ function Transcriber(props)
     const options = {method:'post',headers:headers,body:body};
     const res = await fetch(url,options);
     const res_json = await res.json();
+    console.log(`setting messageId = ${res_json.id}...`);
     setMessageId(res_json.id);
     const audio = res_json.audio;
     const audioArray = Object.values(audio);
     const uint8Array = new Uint8Array(audioArray);
     const blob = new Blob([uint8Array], { type: 'audio/wav' });
     setBlobUrl(URL.createObjectURL(blob));
-    const reply = {'text':res_json.text,'audio':blob}
+    const reply = {'text':res_json.text,'audio':blob, 'id': res_json.id};
     return reply;
   }
   
