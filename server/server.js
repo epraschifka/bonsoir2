@@ -159,6 +159,21 @@ app.post('/update-conversation', async (req,res) => {
   }
 })
 
+app.delete('/delete-conversation', async (req,res) => {
+  try {
+    const id = new ObjectId(req.body.id);
+    const result = conversations.deleteOne({_id:id});
+    const success = result ? true : false;
+    res.send({success:success, message: "Conversation successfully updated!"});
+  } catch (error)
+  {
+    console.log(`An error occured while deleting a conversation: ${error}`);
+    res.send({success:false, message: "An error occured while deleting a conversation."});
+  
+  }
+
+})
+
 app.post('/create-statement', async (req,res) => {
   try {
     const statementText = req.body.statementText;

@@ -2,6 +2,7 @@ import { useState, useEffect, createContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
+import StartPage from './StartPage';
 import TopNav from '../components/navigation/TopNav';
 import LeftNav from "../components/navigation/LeftNav";
 import Call from '../components/conversation/Call';
@@ -51,7 +52,7 @@ function ConversationPage(props)
     if (!isLoading && !success)
     {
         return (
-            <ErrorPage/>
+            <StartPage/>
         )
     }
 
