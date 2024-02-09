@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { LiveTranscriptionEvents,createClient } from '@deepgram/sdk';
+import { useAuth0 } from '@auth0/auth0-react';
 import { inputCtx } from '../../pages/ConversationPage.js';
 import './styles/Transcriber.css'
 
@@ -20,6 +21,7 @@ function Transcriber(props)
             playing, setPlaying,
             recording, setRecording,
             thinking, setThinking } = useContext(inputCtx);
+    const { user } = useAuth0();
 
     useEffect(() => {
         getApiKey();
@@ -97,7 +99,7 @@ function Transcriber(props)
                 await updateConversation(speaker,query);
                 setInput(_transcript);
                 const bonsoirResponse = await getResponse(_transcript);
-                await updateConversation('bonsoir',bonsoirResponse);
+                await updateConversation('Bonsoir',bonsoirResponse);
                 setTranscript('');
             }
         })
@@ -153,20 +155,21 @@ function Transcriber(props)
   function startPlaying()
   {
     setPlaying(true);
-    setSpeaker('bonsoir');
+    setSpeaker('Bonsoir');
   }
 
   function stopPlaying()
   {
     setPlaying(false);
-    setSpeaker('human');
+    setSpeaker(user.name);
   }
 
     return (
         <div className='transcriber-wrapper'>
         <p className='transcript'>{transcript}</p>
         <div className='transcriber-buttons'>
-            <button className='btn' onClick={() => getSocket()} disabled={thinking || playing || speaker === 'bonsoir' || recording}>{recording ? 'Recording' : 'Start recording'}</button>
+            {!recording && <button className='btn' onClick={() => getSocket()} disabled={thinking || playing || speaker === 'Bonsoir'}>Start recording</button>}
+            {recording && <button className='btn' onClick={() => closeSocket()}>Cancel</button>}
             <audio autoPlay src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
         </div>
         </div>

@@ -11,14 +11,11 @@ function Call()
     let playingState = playing ? 'playing' : '';
     return (
         <div className={`call-wrapper`}>
+            <p className='call-title'>Call with Bonsoir</p>
             <div className={`call-window ${recordingState} ${playingState}`}>
-                {speaker == 'human' && !thinking && <img src={user.picture} className='user-pic' alt='user'/>}
-                {speaker == 'bonsoir' && <img src='https://www.svgrepo.com/show/62629/robot.svg' className='bonsoir-pic' alt='bonsoir'/>}
+                {speaker != 'Bonsoir' && !thinking && <img src={user.picture} className='user-pic' alt='user'/>}
+                {speaker == 'Bonsoir' && <img src='https://www.svgrepo.com/show/62629/robot.svg' className='bonsoir-pic' alt='bonsoir'/>}
                 {thinking && <div className='thinking'>Bonsoir is thinking...</div>}
-            </div>
-            <div className='call-participants'>
-                <img src={user.picture} className='participant' alt='user'/>
-                <img src='https://www.svgrepo.com/show/62629/robot.svg' className='participant' alt='bonsoir'/>
             </div>
         </div>
     )

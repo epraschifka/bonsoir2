@@ -3,7 +3,17 @@
     height:calc(100vh - 150px);
 }
 
+.terminal-title {
+    margin-bottom: 1rem;
+    background-color:crimson;
+    font-size:1.5rem;
+    color:white;
+    padding:1rem;
+}
+
 .chatlog-transcriber-wrapper {
     width:50%;
+    margin-left:1rem;
+    margin-right:1rem;
 }
 

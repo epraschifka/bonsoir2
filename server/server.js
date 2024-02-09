@@ -50,6 +50,20 @@ const database = client.db('bonsoir-db');
 const conversations = database.collection('conversations');
 const statements = database.collection('statements');
 
+function getTime()
+{
+  const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const time = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} 
+                               ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return time;
+  }
+
 // post query to chatgpt, return response
 async function generateText(query,parentMessageId) {
   const reply = await api.sendMessage(query, {
@@ -109,8 +123,14 @@ app.get("/apiKey", async (req, res) => {
 app.post('/create-conversation', async (req,res) => {
   const email = req.body.email;
   const title = req.body.title;
-  const statementIds = [];
   const result = await conversations.insertOne({userEmail:email,title:title,statements:[]});
+  const filter = {_id: result.insertedId};
+  const text = `Press the button below to start speaking.
+                Speak clearly and try not to pause between words for the best results. Have fun!`;
+  const time = getTime();
+  const pushCommand = {$push: {statements: {speaker:'Bonsoir',text:text,messageId:'#',time:getTime()}}};
+  const updatedConvo = await conversations.updateOne(filter,pushCommand);
+
   res.send({success:true,message:"New conversation created!",info:result.insertedId});
 })
 
@@ -145,10 +165,10 @@ app.post('/update-conversation', async (req,res) => {
     const convoID = new ObjectId(req.body.convoID);
     const speaker = req.body.speaker;
     const text = req.body.statement.text;
+    const time = getTime();
     const messageId = req.body.messageId
     const filter = {_id: convoID};
-    console.log(`convoID=${convoID},speaker=${speaker},text=${text},messageId=${messageId}`);
-    const pushCommand = {$push: {statements: {speaker:speaker,text:text,messageId:messageId}}};
+    const pushCommand = {$push: {statements: {speaker:speaker,text:text,messageId:messageId,time:time}}};
     const updatedConvo = await conversations.updateOne(filter,pushCommand);
     const success = updatedConvo ? true : false
     res.send({success:success, message: "Conversation successfully updated!"});
@@ -186,19 +206,6 @@ app.delete('/delete-conversation', async (req,res) => {
   
   }
 
-})
-
-app.post('/create-statement', async (req,res) => {
-  try {
-    const statementText = req.body.statementText;
-    const result = await statements.insertOne({text: statementText});
-    const statementId = result.insertedId;
-    res.send({success:true, statementId: statementId});
-  } catch (error)
-  {
-    console.log(`An error occured while creating a statement: ${error}`);
-    res.send({success:false, statementId:''});
-  }
 })
 
 app.listen(PORT,() => {

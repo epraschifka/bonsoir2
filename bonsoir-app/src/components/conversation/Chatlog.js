@@ -10,7 +10,7 @@ function Chatlog(props)
     const { input, setInput, messageId, setMessageId } = useContext(inputCtx);
     let chatlog_mapped = chatlog.map(statement => {
         return (<>
-                    <Statement text={statement.text} speaker={statement.speaker}/>
+                    <Statement text={statement.text} speaker={statement.speaker} time={statement.time}/>
                 </>)
     })
 

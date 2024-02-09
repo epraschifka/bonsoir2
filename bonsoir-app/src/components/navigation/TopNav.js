@@ -30,7 +30,7 @@ function TopNav()
                     <a href='http://localhost:3000/'>Bonsoir</a>
                     <a href='http://localhost:3000/#features'>Features</a>
                 </div>
-                <div>
+                <div className='topnav'>
                     <button className='reveal btn' onClick={toggleDrop}>
                         <FontAwesomeIcon icon={faBars} />
                     </button>

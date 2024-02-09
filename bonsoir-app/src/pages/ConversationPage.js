@@ -19,7 +19,7 @@ function ConversationPage(props)
     const [pageLoading,setPageLoading] = useState(true);
     
     const [input, setInput] = useState('First input');
-    const [speaker, setSpeaker] = useState('human');
+    const [speaker, setSpeaker] = useState(user.name);
     const [messageId, setMessageId] = useState('');
     const [playing, setPlaying] = useState(false);
     const [recording, setRecording] = useState(false);
@@ -70,6 +70,7 @@ function ConversationPage(props)
                                     convoID={props.convoID}>
                     <Call/>
                     <div className='chatlog-transcriber-wrapper'>
+                        <p className='terminal-title'>Terminal</p>
                         <Chatlog convoID = {props.convoID}/>
                         <Transcriber convoID = {props.convoID}/>
                     </div>

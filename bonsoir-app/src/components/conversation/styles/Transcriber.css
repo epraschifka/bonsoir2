@@ -1,17 +1,16 @@
 .transcriber-wrapper {
     display:flex;
-    height:30%;
-    margin-left: 1rem;
-    margin-right:1rem;
-    border: solid black;
+    height:20%;
+    margin-top:1rem;
 }
 
 .transcript {
     width:70%;
-    color:crimson;
-    font-size:2rem;
-    padding:1rem;
+    color:black;
     margin:1rem;
+    font-size:1.5rem;
+    background-color:whitesmoke;
+    border:solid grey 0.5px;
 }
 
 .transcriber-buttons {

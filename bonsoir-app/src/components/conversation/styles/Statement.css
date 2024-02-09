@@ -1,13 +1,21 @@
+.statement-wrapper {
+    display: flex;
+}
+
+.statement-wrapper > img {
+    width:10%;
+    height:100%;
+    margin:1rem;
+    display:flex;
+    align-items:center;
+}
+
 .statement-text {
     font-size:1.5rem;
     margin:0.5rem;
-    background-color:crimson;
     padding:2rem;
-    color:white;
 }
 
-.bonsoir {
-}
-
-.human {
+.statement-data {
+    font-size:1rem;
 }

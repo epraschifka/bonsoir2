@@ -35,7 +35,3 @@
 .conversation-icon-buttons button:hover {
     background-color:rgb(168, 16, 47);
 }
-
-.conversation-icon-buttons button:active {
-    /* transform: translate(1px,1px); */
-}

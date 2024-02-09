@@ -58,9 +58,10 @@
 
 
 @media screen and (max-width:800px) {
-    .topnav a:not(:first-child) {
+    .topnav a:not(:first-child), .topnav p {
         display:none;
     }
+
     .reveal {
         display:block;
     }
