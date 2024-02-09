@@ -11,7 +11,7 @@ function Call()
     let playingState = playing ? 'playing' : '';
     return (
         <div className={`call-wrapper`}>
-            <p className='call-title'>Call with Bonsoir</p>
+            <p className='call-title'>Call</p>
             <div className={`call-window ${recordingState} ${playingState}`}>
                 {speaker != 'Bonsoir' && !thinking && <img src={user.picture} className='user-pic' alt='user'/>}
                 {speaker == 'Bonsoir' && <img src='https://www.svgrepo.com/show/62629/robot.svg' className='bonsoir-pic' alt='bonsoir'/>}

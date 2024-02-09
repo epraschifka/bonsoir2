@@ -24,6 +24,7 @@ function ConversationPage(props)
     const [playing, setPlaying] = useState(false);
     const [recording, setRecording] = useState(false);
     const [thinking, setThinking] = useState(false);
+    const [currentConvo, setCurrentConvo] = useState('');
 
     // get the conversation corresponding to the convoID
     useEffect(() => {
@@ -60,14 +61,13 @@ function ConversationPage(props)
         <>
             <TopNav/>
             <div className='conversation-page-wrapper'>
-                <LeftNav/>
                 <inputCtx.Provider value={{input,setInput,
                                           speaker,setSpeaker,
                                           messageId,setMessageId,
                                           playing,setPlaying,
                                           recording,setRecording,
-                                          thinking, setThinking}} 
-                                    convoID={props.convoID}>
+                                          thinking, setThinking}}>
+                    <LeftNav convoID={props.convoID}/>
                     <Call/>
                     <div className='chatlog-transcriber-wrapper'>
                         <p className='terminal-title'>Terminal</p>

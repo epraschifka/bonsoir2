@@ -1,5 +1,6 @@
 .statement-wrapper {
     display: flex;
+    margin-bottom:1rem;
 }
 
 .statement-wrapper > img {

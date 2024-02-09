@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import ConversationIcon from "./ConversationIcon";
 import './styles/LeftNav.css';
 
-function LeftNav()
+function LeftNav(props)
 {
     const { user } = useAuth0();
     const [convos, setConvos] = useState([]);
@@ -11,11 +11,13 @@ function LeftNav()
         return (<ConversationIcon id={convo._id}
                               email={convo.email}
                               title={convo.title}
-                              key={convo._id}/>);
+                              key={convo._id}
+                              CurrentID = {props.convoID}/>);
     });
 
     // get convos on initial page load
     useEffect(() => {
+        console.log(`LeftNav props.CurrentID = ${props.convoID}`);
         retrieveConvos();
     },[])
 

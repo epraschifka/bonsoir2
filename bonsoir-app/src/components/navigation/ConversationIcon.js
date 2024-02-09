@@ -10,6 +10,7 @@ function ConversationIcon(props)
     const [title,setTitle] = useState(props.title);
     const linkString = '/conversation/' + props.id;
     const linkRef = useRef(null); // Create a ref for the link element
+    const activeClass = props.id === props.CurrentID ? 'active' : '';
 
     useEffect(() => {
         console.log(editing); 
@@ -46,7 +47,7 @@ function ConversationIcon(props)
     }
 
     return (
-        <div className='conversation-icon-wrapper'>
+        <div className={`conversation-icon-wrapper ${activeClass}`}>
             {editing && <p contentEditable={editing} ref={linkRef}>{title}</p>}
             {!editing && <a href={linkString} contentEditable={editing}>{title}</a>}
             <div className="conversation-icon-buttons">

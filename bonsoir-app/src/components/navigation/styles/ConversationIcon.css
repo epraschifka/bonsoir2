@@ -3,6 +3,18 @@
     background-color:crimson;
 }
 
+.active {
+    background-color:black;
+}
+
+.active button {
+    background-color:black !important
+}
+
+.active p,.active a {
+    color:white !important;
+}
+
 .conversation-icon-wrapper > a, .conversation-icon-wrapper > p {
     text-decoration: none;
     color:white;
@@ -12,7 +24,7 @@
     transition: background-color 0.4s ease-in-out;
 }
 
-.conversation-icon-wrapper a:hover {
+.conversation-icon-wrapper:not(.active) a:hover {
     background-color:rgb(168, 16, 47);
 }
 
