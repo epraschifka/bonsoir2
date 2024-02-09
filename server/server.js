@@ -159,6 +159,20 @@ app.post('/update-conversation', async (req,res) => {
   }
 })
 
+app.put('/rename-conversation', async (req,res) => {
+  try {
+    const id = new ObjectId(req.body.id);
+    const title = req.body.title;
+    const result = await conversations.updateOne({_id:id},{$set:{title:title}});
+    const success = result ? true : false;
+    res.send({success:success, message: "Conversation successfully updated!"});
+  } catch (error)
+  {
+    console.log(`An error occured while renaming a conversation: ${error}`);
+    res.send({success:false, message: "An error occured while renaming a conversation."});
+  }
+})
+
 app.delete('/delete-conversation', async (req,res) => {
   try {
     const id = new ObjectId(req.body.id);
