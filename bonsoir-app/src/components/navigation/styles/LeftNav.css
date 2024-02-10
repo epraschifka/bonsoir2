@@ -1,12 +1,11 @@
 .leftnav.wrapper {
     overflow:auto;
-    margin-left:1rem;
-    max-height: calc(100% - 60px - 16px);
+    min-width:20%;
+    min-width:230px;
 }
 
 .new-conversation-wrapper {
     display:flex;
-    flex-direction:row;
     color:white;
     background-color:crimson;
     transition: color 0.4s ease-in-out;
@@ -24,7 +23,7 @@
 }
 
 .new-conversation-text {
-    padding:2rem;
+    padding:3rem;
     font-size:1.5rem;
     width:70%;
     cursor: pointer;

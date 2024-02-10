@@ -6,7 +6,7 @@ import './styles/WelcomePage.css';
 function WelcomePage()
 {
     return (
-        <div className='welcome-wrapper'>
+        <div className='page-wrapper'>
             <TopNav/>
             <section id='home'>
                 <div className='intro-wrapper'>

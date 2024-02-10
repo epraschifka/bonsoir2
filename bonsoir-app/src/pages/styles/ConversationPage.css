@@ -1,14 +1,19 @@
-.conversation-page-wrapper {
+.page-wrapper {
+    padding: 3rem 6rem 0rem 6rem;
+}
+
+.leftnav-call-terminal-wrapper {
     display:flex;
-    max-height:calc(100vh - 130px);
-    padding:3rem;
+    max-height:80vh;
+}
+
+.call-terminal-wrapper {
+    display:flex;
 }
 
 .terminal-wrapper {
     margin-left:1rem;
-    margin-right:1rem;
-    width: 40%;
-
+    width:50%;
 }
 
 .terminal-title {
@@ -24,7 +29,5 @@
     flex-direction: column;
     justify-content:space-between;
     max-height: calc(100% - 60px - 16px);
-    border: solid black;
     overflow:hidden;
 }
-

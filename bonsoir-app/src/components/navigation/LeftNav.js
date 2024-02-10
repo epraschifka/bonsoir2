@@ -53,8 +53,8 @@ function LeftNav(props)
 
     return (
         <nav className='leftnav wrapper'>
-                <div className='new-conversation-wrapper' onClick={() => createNewConvo('new conversation')}>
-                    <p className='new-conversation-text'>New conversation</p>
+                <div className='new-conversation-wrapper' onClick={() => createNewConvo('New Conversation')}>
+                    <p className='new-conversation-text'>New</p>
                     <button className='new-conversation-button'>+</button>
                 </div>
                 {printedConvos}

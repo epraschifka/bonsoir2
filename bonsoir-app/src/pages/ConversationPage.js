@@ -2,7 +2,6 @@ import { useState, useEffect, createContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
-import StartPage from './StartPage';
 import TopNav from '../components/navigation/TopNav';
 import LeftNav from "../components/navigation/LeftNav";
 import Call from '../components/conversation/Call';
@@ -58,27 +57,29 @@ function ConversationPage(props)
     }
 
     return (
-        <>
+        <div className='page-wrapper'>
             <TopNav/>
-            <div className='conversation-page-wrapper'>
-                <inputCtx.Provider value={{input,setInput,
-                                          speaker,setSpeaker,
-                                          messageId,setMessageId,
-                                          playing,setPlaying,
-                                          recording,setRecording,
-                                          thinking, setThinking}}>
+            <inputCtx.Provider value={{input,setInput,
+                                        speaker,setSpeaker,
+                                        messageId,setMessageId,
+                                        playing,setPlaying,
+                                        recording,setRecording,
+                                        thinking, setThinking}}>
+                <div className='leftnav-call-terminal-wrapper'>
                     <LeftNav convoID={props.convoID}/>
-                    <Call/>
-                    <div className='terminal-wrapper'>
-                        <p className='terminal-title'>Terminal</p>
-                        <div className='chatlog-transcriber-wrapper'>
-                            <Chatlog convoID = {props.convoID}/>
-                            <Transcriber convoID = {props.convoID}/>
+                    <div className='call-terminal-wrapper'>
+                        <Call/>
+                        <div className='terminal-wrapper'>
+                            <p className='terminal-title'>Terminal</p>
+                            <div className='chatlog-transcriber-wrapper'>
+                                <Chatlog convoID = {props.convoID}/>
+                                <Transcriber convoID = {props.convoID}/>
+                            </div>
                         </div>
                     </div>
-                </inputCtx.Provider>
-            </div>
-        </>
+                </div>
+            </inputCtx.Provider>
+        </div>
     )
 }
 

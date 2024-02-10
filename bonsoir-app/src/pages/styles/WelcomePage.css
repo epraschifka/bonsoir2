@@ -1,6 +1,7 @@
-.welcome-wrapper {
+.page-wrapper {
     padding:3rem;
 }
+
 .intro-wrapper {
     display:flex;
     background-color:rgb(248, 227, 227);

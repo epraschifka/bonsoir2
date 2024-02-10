@@ -3,7 +3,6 @@
     width:50%;
     flex-direction: column;
     margin-left:1rem;
-    border:solid pink;
 }
 
 .call-title {
@@ -17,18 +16,18 @@
 
 .call-window {
     display:flex;
+    align-items:center;
     justify-content: center;
-    align-items: center;
-    background-color:black;
-    height: calc(100% - 60px - 16px);
+    height:100%;
+    background-color: black;
 }
 
 .bonsoir-pic {
-    margin:20%;
+
 }
 
 .user-pic {
-    margin:50%;
+    
 }
 
 .thinking {
