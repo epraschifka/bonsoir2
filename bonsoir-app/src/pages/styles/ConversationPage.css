@@ -1,6 +1,14 @@
 .conversation-page-wrapper {
     display:flex;
-    height:calc(100vh - 150px);
+    max-height:calc(100vh - 130px);
+    padding:3rem;
+}
+
+.terminal-wrapper {
+    margin-left:1rem;
+    margin-right:1rem;
+    width: 40%;
+
 }
 
 .terminal-title {
@@ -12,8 +20,11 @@
 }
 
 .chatlog-transcriber-wrapper {
-    width:50%;
-    margin-left:1rem;
-    margin-right:1rem;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between;
+    max-height: calc(100% - 60px - 16px);
+    border: solid black;
+    overflow:hidden;
 }
 

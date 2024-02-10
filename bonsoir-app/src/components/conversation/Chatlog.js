@@ -9,9 +9,10 @@ function Chatlog(props)
     const [chatlog,setChatlog] = useState([]);
     const { input, setInput, messageId, setMessageId } = useContext(inputCtx);
     let chatlog_mapped = chatlog.map(statement => {
-        return (<>
-                    <Statement text={statement.text} speaker={statement.speaker} time={statement.time}/>
-                </>)
+        return (<Statement text={statement.text} 
+                           speaker={statement.speaker} 
+                           time={statement.time}
+                           key={statement.time}/>)
     })
 
     useEffect(() => {

@@ -1,18 +1,23 @@
-import LeftNav from "../components/navigation/LeftNav";
-import './styles/StartPage.css';
 import TopNav from '../components/navigation/TopNav';
+import LeftNav from "../components/navigation/LeftNav";
+import Call from '../components/conversation/Call';
+import Chatlog from '../components/conversation/Chatlog';
+import Transcriber from '../components/conversation/Transcriber';
+import './styles/ConversationPage.css';
 
-function StartPage()
+function StartPage(props)
 {
     return (
         <>
             <TopNav/>
-            <div className='startpage wrapper'>
-                <LeftNav/>
-                <div className='startpage-text'>
-                    Create a new conversation or select an existing
-                    conversation to get started.
-                </div>
+            <div className='conversation-page-wrapper'>
+                    <LeftNav/>
+                    <Call/>
+                    <div className='chatlog-transcriber-wrapper'>
+                        <p className='terminal-title'>Terminal</p>
+                        <Chatlog/>
+                        <Transcriber/>
+                    </div>
             </div>
         </>
     )

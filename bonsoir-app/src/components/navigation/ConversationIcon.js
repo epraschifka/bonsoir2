@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState, useRef } from "react"; // Add useRef import
+import {Helmet} from "react-helmet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons'
 import "./styles/ConversationIcon.css";
@@ -42,7 +43,14 @@ function ConversationIcon(props)
         console.log('sending fetch...')
         await fetch(url,options);
         console.log('received response')
-        window.location.reload();
+        if (props.id === props.CurrentID)
+        {
+            window.location.href = '/home';
+        }
+        else
+        {
+            window.location.reload();
+        }
 
     }
 

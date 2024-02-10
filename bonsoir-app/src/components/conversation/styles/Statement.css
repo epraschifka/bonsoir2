@@ -1,6 +1,7 @@
 .statement-wrapper {
     display: flex;
-    margin-bottom:1rem;
+    margin: 1rem 1rem 1rem 0rem;
+    background-color: whitesmoke;
 }
 
 .statement-wrapper > img {

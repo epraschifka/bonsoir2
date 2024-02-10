@@ -53,7 +53,7 @@ function ConversationPage(props)
     if (!isLoading && !success)
     {
         return (
-            <StartPage/>
+            <ErrorPage/>
         )
     }
 
@@ -69,10 +69,12 @@ function ConversationPage(props)
                                           thinking, setThinking}}>
                     <LeftNav convoID={props.convoID}/>
                     <Call/>
-                    <div className='chatlog-transcriber-wrapper'>
+                    <div className='terminal-wrapper'>
                         <p className='terminal-title'>Terminal</p>
-                        <Chatlog convoID = {props.convoID}/>
-                        <Transcriber convoID = {props.convoID}/>
+                        <div className='chatlog-transcriber-wrapper'>
+                            <Chatlog convoID = {props.convoID}/>
+                            <Transcriber convoID = {props.convoID}/>
+                        </div>
                     </div>
                 </inputCtx.Provider>
             </div>

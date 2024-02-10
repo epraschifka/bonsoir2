@@ -1,7 +1,7 @@
 .leftnav.wrapper {
-    background-color:white;
     overflow:auto;
     margin-left:1rem;
+    max-height: calc(100% - 60px - 16px);
 }
 
 .new-conversation-wrapper {

@@ -1,15 +1,15 @@
 .transcriber-wrapper {
     display:flex;
-    height:20%;
     margin-top:1rem;
 }
 
 .transcript {
-    width:70%;
-    color:black;
-    margin:1rem;
+    color:crimson;
     font-size:1.5rem;
-    border:solid grey 0.5px;
+    background-color:whitesmoke;
+    padding:2rem;
+    margin-right:1rem;
+    width:70%;
 }
 
 .transcriber-buttons {
@@ -17,4 +17,9 @@
     display:flex;
     justify-content:center;
     align-items: center;
+}
+
+.transcriber-buttons button {
+    padding:2rem;
+    font-size:1.5rem;
 }

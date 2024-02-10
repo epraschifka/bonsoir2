@@ -6,7 +6,7 @@ import './styles/WelcomePage.css';
 function WelcomePage()
 {
     return (
-        <>
+        <div className='welcome-wrapper'>
             <TopNav/>
             <section id='home'>
                 <div className='intro-wrapper'>
@@ -36,7 +36,7 @@ function WelcomePage()
                 </div>
             </section>
             <div className='footer'></div>
-        </>
+        </div>
     )
 }
 

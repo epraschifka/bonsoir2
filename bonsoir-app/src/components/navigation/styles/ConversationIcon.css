@@ -1,49 +1,51 @@
 .conversation-icon-wrapper {
-    display:flex;
-    background-color:crimson;
+    display: flex;
+    background-color: crimson;
 }
 
 .active {
-    background-color:black;
+    background-color: black;
 }
 
 .active button {
-    background-color:black !important
+    background-color: black !important
 }
 
-.active p,.active a {
-    color:white !important;
+.active p,
+.active a {
+    color: white !important;
 }
 
-.conversation-icon-wrapper > a, .conversation-icon-wrapper > p {
+.conversation-icon-wrapper>a,
+.conversation-icon-wrapper>p {
     text-decoration: none;
-    color:white;
-    padding:2rem;
-    width:80%;
-    font-size:1.2rem;
+    color: white;
+    padding: 2rem;
+    width: 80%;
+    font-size: 1.2rem;
     transition: background-color 0.4s ease-in-out;
 }
 
 .conversation-icon-wrapper:not(.active) a:hover {
-    background-color:rgb(168, 16, 47);
+    background-color: rgb(168, 16, 47);
 }
 
 .conversation-icon-buttons {
-    width:20%;
+    width: 20%;
 }
 
 .conversation-icon-buttons button {
-    border:none;
-    background-color:crimson;
+    border: none;
+    background-color: crimson;
     cursor: pointer;
-    font-size:1rem;
-    color:white;
-    padding:1rem;
-    width:100%;
+    font-size: 1rem;
+    color: white;
+    padding: 1rem;
+    width: 100%;
     transition: background-color 0.4s ease-in-out;
-    height:50%;
+    height: 50%;
 }
 
 .conversation-icon-buttons button:hover {
-    background-color:rgb(168, 16, 47);
+    background-color: rgb(168, 16, 47);
 }

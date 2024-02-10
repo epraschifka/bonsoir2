@@ -166,7 +166,7 @@ function Transcriber(props)
 
     return (
         <div className='transcriber-wrapper'>
-        <p className='transcript'>{transcript}</p>
+        <p className='transcript'>{transcript ? transcript : 'Transcribed speech will appear here.'}</p>
         <div className='transcriber-buttons'>
             {!recording && <button className='btn' onClick={() => getSocket()} disabled={thinking || playing || speaker === 'Bonsoir'}>Start recording</button>}
             {recording && <button className='btn' onClick={() => closeSocket()}>Cancel</button>}

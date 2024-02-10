@@ -3,6 +3,7 @@
     width:50%;
     flex-direction: column;
     margin-left:1rem;
+    border:solid pink;
 }
 
 .call-title {
@@ -15,32 +16,23 @@
 }
 
 .call-window {
-    height:70%;
     display:flex;
     justify-content: center;
     align-items: center;
     background-color:black;
-    margin-bottom: 1rem;
+    height: calc(100% - 60px - 16px);
 }
 
 .bonsoir-pic {
-    width:10%;
+    margin:20%;
 }
 
 .user-pic {
-    width:10%;
+    margin:50%;
 }
 
 .thinking {
     color:white;
-}
-
-.participant {
-    width:10%;
-}
-
-.participant:hover {
-    opacity:80%;
 }
 
 .recording, .playing {
