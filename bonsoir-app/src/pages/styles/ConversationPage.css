@@ -13,7 +13,6 @@
 
 .terminal-wrapper {
     margin-left:1rem;
-    width:50%;
 }
 
 .terminal-title {
@@ -28,6 +27,16 @@
     display:flex;
     flex-direction: column;
     justify-content:space-between;
-    max-height: calc(100% - 60px - 16px);
+    height: calc(100% - 60px - 16px);
     overflow:hidden;
+}
+
+@media screen and (max-width: 800px) {
+    .page-wrapper {
+        padding: 1rem 1rem 1rem 1rem;
+    }
+
+    .terminal-wrapper {
+        margin-left:0px;
+    }
 }

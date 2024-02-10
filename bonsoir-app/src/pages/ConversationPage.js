@@ -68,7 +68,6 @@ function ConversationPage(props)
                 <div className='leftnav-call-terminal-wrapper'>
                     <LeftNav convoID={props.convoID}/>
                     <div className='call-terminal-wrapper'>
-                        <Call/>
                         <div className='terminal-wrapper'>
                             <p className='terminal-title'>Terminal</p>
                             <div className='chatlog-transcriber-wrapper'>

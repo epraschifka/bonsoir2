@@ -1,4 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from "react";
 import ConversationIcon from "./ConversationIcon";
 import './styles/LeftNav.css';
@@ -52,13 +54,15 @@ function LeftNav(props)
     }
 
     return (
-        <nav className='leftnav wrapper'>
-                <div className='new-conversation-wrapper' onClick={() => createNewConvo('New Conversation')}>
-                    <p className='new-conversation-text'>New</p>
-                    <button className='new-conversation-button'>+</button>
-                </div>
-                {printedConvos}
-        </nav>
+        <div className='leftnav-wrapper'>
+            <nav className='leftnav'>
+                    <div className='new-conversation-wrapper' onClick={() => createNewConvo('New Conversation')}>
+                        <p className='new-conversation-text'>New</p>
+                        <button className='new-conversation-button'>+</button>
+                    </div>
+                    {printedConvos}
+            </nav>
+        </div>
     )
 }
 

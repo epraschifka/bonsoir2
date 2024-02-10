@@ -126,7 +126,9 @@ app.post('/create-conversation', async (req,res) => {
   const result = await conversations.insertOne({userEmail:email,title:title,statements:[]});
   const filter = {_id: result.insertedId};
   const text = `Press the button below to start speaking.
-                Speak clearly and try not to pause between words for the best results. Have fun!`;
+                Speak clearly and try not to pause between 
+                words for the best experience. Your voice appears in red,
+                and the AI's voice appears in black. Have fun!`
   const time = getTime();
   const pushCommand = {$push: {statements: {speaker:'Bonsoir',text:text,messageId:'#',time:getTime()}}};
   const updatedConvo = await conversations.updateOne(filter,pushCommand);

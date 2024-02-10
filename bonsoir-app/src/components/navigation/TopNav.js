@@ -4,7 +4,7 @@ import LogoutButton from "./LogoutButton";
 import LoginButton from './LoginButton';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 function TopNav()
 {
@@ -27,13 +27,13 @@ function TopNav()
         <div className='topnav-wrapper'>
             <nav className='topnav'>
                 <div className='topnav'>
-                    <a href='http://localhost:3000/'>Bonsoir</a>
+                    <button className='reveal btn' onClick={toggleDrop}>
+                            <FontAwesomeIcon icon={faBars} />
+                    </button>
+                    <a class='topnav-bonsoir' href='http://localhost:3000/'>Bonsoir</a>
                     <a href='http://localhost:3000/#features'>Features</a>
                 </div>
                 <div className='topnav'>
-                    <button className='reveal btn' onClick={toggleDrop}>
-                        <FontAwesomeIcon icon={faBars} />
-                    </button>
                     {logButton}
                 </div>
             </nav>
