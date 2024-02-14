@@ -4,11 +4,7 @@
 }
 
 .active {
-    background-color: black;
-}
-
-.active button {
-    background-color: black !important
+    background-color: rgb(168, 16, 47) !important;
 }
 
 .active p,

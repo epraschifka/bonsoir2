@@ -6,13 +6,13 @@ import './styles/WelcomePage.css';
 function WelcomePage()
 {
     return (
-        <div className='page-wrapper'>
+        <div>
             <TopNav/>
             <section id='home'>
                 <div className='intro-wrapper'>
                     <div className='intro-text'>
                         <h1>An <span class='emphasis'>intelligent</span> virtual assistant with <span class='emphasis'>speech recognition</span> and <span class='emphasis'>synthesis</span></h1>
-                        <NavLink to='http://localhost:3000/home'>
+                        <NavLink path='/home'>
                             <button className='intro-button btn'>
                                 Get started
                             </button>

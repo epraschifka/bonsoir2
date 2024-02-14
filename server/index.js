@@ -1,4 +1,5 @@
 // dependencies
+import 'dotenv/config';
 import { ChatGPTAPI } from 'chatgpt';
 import express from 'express';
 import dotenv from 'dotenv';
@@ -8,44 +9,26 @@ import { ObjectId } from 'mongodb'
 
 const app = express();
 const PORT = 3001;
-const elevenLabsKey = process.env.elevenLabsKey;
+const elevenLabsKey = process.env.ELEVENLABS_KEY;
 // const elevenLabsVoice = 'hsDNToeZAyHpjnC5X924'
 const elevenLabsVoice = '21m00Tcm4TlvDq8ikWAM'
-/* const systemMessage = `You are Bonsoir, a cheerful French tutor who helps
-                      french learners practice speaking and listening to French
-                      by simulating authentic, real conversations in French.
-                      Be as concise in your responses as possible. If you are
-                      generating a list, do not have too many items. Do not
-                      ask the user if they need help with anything, as this
-                      sounds unnatural - remember that your job is to simulate
-                      a conversation with a french person on the street, so
-                      ask about their day, their hobbies, or anything else.
-                      If asked these questions, come up with responses
-                      as if you are a human. If something they say
-                      doesn't make sense or sounds ungrammatical,
-                      either correct them or ask for clarification - be 
-                      very strict about this! Try to be warm and friendly rather than cold 
-                      and robotic. Your plans today are to go shopping,
-                      walk on the beach and make dinner.` */
 const systemMessage = `You are a friendly, warm assistant who answers
                       questions from the user and likes to have interesting
                       conversations! Keep your answers short and sweet.`
 
 const api = new ChatGPTAPI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_KEY,
   systemMessage: systemMessage             
 })
 
 // middleware
 app.use(cors());
 app.use(express.json());
-dotenv.config();
-const apiKey = process.env.DG_KEY;
+const apiKey = process.env.DEEPGRAM_KEY;
 
 // each user can have multiple conversations, and
 // each conversation can consist of multiple statements
-const uri = "mongodb+srv://edwardpraschifka:oZOVIOEhdtHg4ehN@bonsoir-cluster.2neujbs.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri);
+const client = new MongoClient(process.env.MONGO_URI);
 const database = client.db('bonsoir-db');
 const conversations = database.collection('conversations');
 const statements = database.collection('statements');

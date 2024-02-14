@@ -40,7 +40,7 @@
     transition: background-color 0.4s ease-in-out
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
     .leftnav-wrapper {
         display:none;
     }
