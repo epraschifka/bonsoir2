@@ -31,8 +31,7 @@ function ConversationPage(props)
 
     async function retrieveConvo()
     {
-        const url = 'http://localhost:3001/retrieve-conversations-id/'
-                        + props.convoID;
+        const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-id/${props.convoID}`;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
         const options = {method:method,headers:headers};

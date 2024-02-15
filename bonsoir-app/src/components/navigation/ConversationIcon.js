@@ -1,6 +1,4 @@
-import { NavLink } from "react-router-dom";
 import { useEffect, useState, useRef } from "react"; // Add useRef import
-import {Helmet} from "react-helmet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons'
 import "./styles/ConversationIcon.css";
@@ -24,18 +22,18 @@ function ConversationIcon(props)
     {
         setTitle(linkRef.current.innerText);
         setEditing(false);
-        const url = 'http://localhost:3001/rename-conversation';
+        const url = `${process.env.REACT_APP_SERVER_URL}/rename-conversation`;
         const method = 'put';
         const headers = {'Content-Type': 'application/json'};
         const body = JSON.stringify({id: props.id, title: linkRef.current.innerText});
-        const options = {method:method,headers:headers,body:body};
+        const options = {method:method, headers:headers, body:body};
         await fetch(url,options);
     }
 
     async function deleteConvo()
     {
         console.log('deleteConvo triggered')
-        const url = 'http://localhost:3001/delete-conversation';
+        const url = `${process.env.REACT_APP_SERVER_URL}/delete-conversation`;
         const method = 'delete';
         const headers = {'Content-Type': 'application/json'};
         const body = JSON.stringify({id: props.id});

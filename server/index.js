@@ -29,7 +29,6 @@ const apiKey = process.env.DEEPGRAM_KEY;
 const client = new MongoClient(process.env.MONGO_URI);
 const database = client.db('bonsoir-db');
 const conversations = database.collection('conversations');
-const statements = database.collection('statements');
 
 function getTime()
 {

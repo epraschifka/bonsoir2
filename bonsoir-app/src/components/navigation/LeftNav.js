@@ -1,6 +1,4 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from "react";
 import ConversationIcon from "./ConversationIcon";
 import './styles/LeftNav.css';
@@ -26,8 +24,7 @@ function LeftNav(props)
     // function to retrieve conversations started by this user
     async function retrieveConvos()
     {
-        const url = 'http://localhost:3001/retrieve-conversations-email/'
-                        + user.email;
+        const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-email/${user.email}`;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
         const options = {method:method,headers:headers};
@@ -40,7 +37,7 @@ function LeftNav(props)
     // to update navbar.
     async function createNewConvo(string)
     {
-        const url = 'http://localhost:3001/create-conversation';
+        const url = `${process.env.REACT_APP_SERVER_URL}/create-conversation`;
         const method = 'post';
         const headers = {'Content-Type': 'application/json'};
         const email = user.email;
