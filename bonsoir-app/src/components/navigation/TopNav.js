@@ -2,10 +2,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import './styles/TopNav.css';
 import LogoutButton from "./LogoutButton";
 import LoginButton from './LoginButton';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { NavLink } from 'react-router-dom';
 
 function TopNav(props)
 {

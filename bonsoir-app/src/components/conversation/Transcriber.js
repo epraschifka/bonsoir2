@@ -36,7 +36,7 @@ function Transcriber(props)
     }, [socket,socketOpen])
 
     async function getApiKey() {
-        const result = await fetch("http://localhost:3001/apiKey");
+        const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/apiKey`);
         const json = await result.json();
         setApiKey(json.apiKey);
     }
@@ -123,7 +123,7 @@ function Transcriber(props)
 
     // update conversation with new statement
   async function updateConversation(speaker,statement) {
-    const url = 'http://localhost:3001/update-conversation/';
+    const url = `${process.env.REACT_APP_SERVER_URL}/update-conversation/`;
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
     const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement, 'messageId': statement.id})
@@ -134,7 +134,7 @@ function Transcriber(props)
   
   // gets response from chatgpt
   async function getResponse(statement) {
-    const url = 'http://localhost:3001/post-query/';
+    const url = `${process.env.REACT_APP_SERVER_URL}/post-query/`;
     const headers = {'Content-Type': 'application/json'};
     const body = JSON.stringify({'query':statement,'parentMessageId':messageId})
     const options = {method:'post',headers:headers,body:body};

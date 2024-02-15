@@ -4,7 +4,6 @@ import LoadingPage from "./LoadingPage";
 import ErrorPage from './ErrorPage';
 import TopNav from '../components/navigation/TopNav';
 import LeftNav from "../components/navigation/LeftNav";
-import Call from '../components/conversation/Call';
 import Chatlog from '../components/conversation/Chatlog';
 import Transcriber from '../components/conversation/Transcriber';
 import './styles/ConversationPage.css';
@@ -31,8 +30,7 @@ function ConversationPage(props)
 
     async function retrieveConvo()
     {
-        const url = 'http://localhost:3001/retrieve-conversations-id/'
-                        + props.convoID;
+        const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-id/${props.convoID}`;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
         const options = {method:method,headers:headers};
