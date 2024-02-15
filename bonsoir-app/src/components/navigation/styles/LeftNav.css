@@ -1,7 +1,6 @@
 .leftnav-wrapper {
     overflow:auto;
-    min-width:20%;
-    min-width:230px;
+    width:315px;
 }
 
 .new-conversation-wrapper {

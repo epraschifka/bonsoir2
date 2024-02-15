@@ -140,13 +140,13 @@ function Transcriber(props)
     const options = {method:'post',headers:headers,body:body};
     const res = await fetch(url,options);
     const res_json = await res.json();
-    console.log(`setting messageId = ${res_json.id}...`);
     setMessageId(res_json.id);
     const audio = res_json.audio;
     const audioArray = Object.values(audio);
     const uint8Array = new Uint8Array(audioArray);
     const blob = new Blob([uint8Array], { type: 'audio/wav' });
     setBlobUrl(URL.createObjectURL(blob));
+    console.log(blobUrl);
     setThinking(false);
     const reply = {'text':res_json.text,'audio':blob, 'id': res_json.id};
     return reply;
@@ -168,8 +168,10 @@ function Transcriber(props)
         <div className='transcriber-wrapper'>
         <p className='transcript'>{transcript ? transcript : 'Transcribed speech will appear here.'}</p>
         <div className='transcriber-buttons'>
-            {!recording && <button className='btn' onClick={() => getSocket()} disabled={thinking || playing || speaker === 'Bonsoir'}>Start recording</button>}
-            {recording && <button className='btn' onClick={() => closeSocket()}>Cancel</button>}
+            {!recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={playing || speaker === 'Bonsoir'}>Start recording</button>}
+            {recording && <button className='btn recording' onClick={() => closeSocket()}>Recording, Click to Cancel</button>}
+            {thinking && <button className='btn' disabled><div className='loader'></div></button>}
+            
             <audio autoPlay src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
         </div>
         </div>

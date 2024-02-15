@@ -1,15 +1,12 @@
 .leftnav-call-terminal-wrapper {
     display:flex;
-    max-height:80vh;
+    height:80vh;
     padding: 0rem 3rem 0rem 3rem;
-}
-
-.call-terminal-wrapper {
-    display:flex;
 }
 
 .terminal-wrapper {
     margin-left:1rem;
+    width:60%;
 }
 
 .terminal-title {
@@ -32,5 +29,12 @@
 
     .terminal-wrapper {
         margin-left:0px;
+        width:100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .leftnav-call-terminal-wrapper {
+        padding: 0rem 0rem 0rem 0rem;
     }
 }

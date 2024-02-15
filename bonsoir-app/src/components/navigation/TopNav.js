@@ -5,6 +5,7 @@ import LoginButton from './LoginButton';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
 
 function TopNav(props)
 {
@@ -30,8 +31,8 @@ function TopNav(props)
                     <button className='reveal btn' onClick={toggleDrop}>
                             <FontAwesomeIcon icon={faBars} />
                     </button>
-                    <a class='topnav-bonsoir' href='http://localhost:3000/'>Bonsoir</a>
-                    <a href='http://localhost:3000/#features'>Features</a>
+                    <a className='topnav-bonsoir' href='/'>Bonsoir</a>
+                    <a href='/#features'>Features</a>
                 </div>
                 <div className='topnav'>
                     {logButton}

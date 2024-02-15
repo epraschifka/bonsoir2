@@ -2,7 +2,6 @@
 import 'dotenv/config';
 import { ChatGPTAPI } from 'chatgpt';
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import { MongoClient } from 'mongodb';
 import { ObjectId } from 'mongodb'
@@ -10,7 +9,6 @@ import { ObjectId } from 'mongodb'
 const app = express();
 const PORT = 3001;
 const elevenLabsKey = process.env.ELEVENLABS_KEY;
-// const elevenLabsVoice = 'hsDNToeZAyHpjnC5X924'
 const elevenLabsVoice = '21m00Tcm4TlvDq8ikWAM'
 const systemMessage = `You are a friendly, warm assistant who answers
                       questions from the user and likes to have interesting
@@ -35,7 +33,7 @@ const statements = database.collection('statements');
 
 function getTime()
 {
-  const now = new Date();
+    const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
     const day = now.getDate();
@@ -110,11 +108,10 @@ app.post('/create-conversation', async (req,res) => {
   const filter = {_id: result.insertedId};
   const text = `Press the button below to start speaking.
                 Speak clearly and try not to pause between 
-                words for the best experience. Your voice appears in red,
-                and the AI's voice appears in black. Have fun!`
-  const time = getTime();
+                words for the best experience. If your speech is transcribed but you
+                don't hear a confirmation ding, try repeating your statement. Have fun!`
   const pushCommand = {$push: {statements: {speaker:'Bonsoir',text:text,messageId:'#',time:getTime()}}};
-  const updatedConvo = await conversations.updateOne(filter,pushCommand);
+  await conversations.updateOne(filter,pushCommand);
 
   res.send({success:true,message:"New conversation created!",info:result.insertedId});
 })

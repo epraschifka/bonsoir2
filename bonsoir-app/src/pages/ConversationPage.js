@@ -66,7 +66,6 @@ function ConversationPage(props)
                                         thinking, setThinking}}>
                 <div className='leftnav-call-terminal-wrapper'>
                     <LeftNav convoID={props.convoID}/>
-                    <div className='call-terminal-wrapper'>
                         <div className='terminal-wrapper'>
                             <p className='terminal-title'>Terminal</p>
                             <div className='chatlog-transcriber-wrapper'>
@@ -74,7 +73,6 @@ function ConversationPage(props)
                                 <Transcriber convoID = {props.convoID}/>
                             </div>
                         </div>
-                    </div>
                 </div>
             </inputCtx.Provider>
         </div>

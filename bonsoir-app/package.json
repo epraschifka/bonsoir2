@@ -1,7 +1,7 @@
 {
   "name": "bonsoir-app",
   "version": "0.1.0",
-  "homepage": "http://localhost:3000/",
+  "homepage": "https://d1opthfiv9z8my.cloudfront.net/",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",

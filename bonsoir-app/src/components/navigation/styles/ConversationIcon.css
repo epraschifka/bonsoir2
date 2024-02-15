@@ -3,12 +3,12 @@
     background-color: crimson;
 }
 
-.active {
+.active-conversation {
     background-color: rgb(168, 16, 47) !important;
 }
 
-.active p,
-.active a {
+.active-conversation p,
+.active-conversation a {
     color: white !important;
 }
 

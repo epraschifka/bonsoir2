@@ -22,7 +22,6 @@
 }
 
 .btn:disabled {
-    color: black;
-    background-color:white;
     cursor: not-allowed;
+    background-color:black;
 }

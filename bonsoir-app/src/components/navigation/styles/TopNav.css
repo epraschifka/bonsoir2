@@ -65,15 +65,20 @@
 
     .open {
         display:block;
-        width:40vw;
         position:absolute;
         top:100px;
         box-shadow:0px 0px 10px 1px;
         overflow:auto;
-        height:40vh;
+        max-height:40vh;
     }
 
     .dropdown > * {
         display:block !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .topnav-wrapper {
+        padding: 0rem 1rem 0rem 1rem;
     }
 }

@@ -11,7 +11,7 @@ function ConversationIcon(props)
     const [title,setTitle] = useState(props.title);
     const linkString = '/conversation/' + props.id;
     const linkRef = useRef(null); // Create a ref for the link element
-    const activeClass = props.id === props.CurrentID ? 'active' : '';
+    const activeClass = props.id === props.CurrentID ? 'active-conversation' : '';
 
     useEffect(() => {
         console.log(editing); 
