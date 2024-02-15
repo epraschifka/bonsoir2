@@ -166,12 +166,11 @@ function Transcriber(props)
 
     return (
         <div className='transcriber-wrapper'>
-        <p className='transcript'>{transcript ? transcript : 'Transcribed speech will appear here.'}</p>
+        <p className='transcript'>{transcript ? transcript : props.disabled ? 'Create a new conversation or load an existing conversation using the bar on the left.': 'Transcribed speech will appear here.'}</p>
         <div className='transcriber-buttons'>
-            {!recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={playing || speaker === 'Bonsoir'}>Start recording</button>}
+            {!recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={props.disabled || playing || speaker === 'Bonsoir'}>Start recording</button>}
             {recording && <button className='btn recording' onClick={() => closeSocket()}>Recording, Click to Cancel</button>}
             {thinking && <button className='btn' disabled><div className='loader'></div></button>}
-            
             <audio autoPlay src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
         </div>
         </div>

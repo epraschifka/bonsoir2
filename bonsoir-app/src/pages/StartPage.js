@@ -22,7 +22,7 @@ function StartPage(props)
                             <p className='terminal-title'>Terminal</p>
                             <div className='chatlog-transcriber-wrapper'>
                                 <Chatlog convoID = {props.convoID}/>
-                                <Transcriber convoID = {props.convoID}/>
+                                <Transcriber convoID = {props.convoID} disabled = {true}/>
                             </div>
                         </div>
                 </div>
