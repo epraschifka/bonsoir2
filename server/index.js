@@ -4,10 +4,10 @@ import { ChatGPTAPI } from 'chatgpt';
 import express from 'express';
 import cors from 'cors';
 import { MongoClient } from 'mongodb';
-import { ObjectId } from 'mongodb'
+import { ObjectId } from 'mongodb';
 
 const app = express();
-const PORT = 3001;
+const PORT = 3000;
 const elevenLabsKey = process.env.ELEVENLABS_KEY;
 const elevenLabsVoice = '21m00Tcm4TlvDq8ikWAM'
 const systemMessage = `You are a friendly, warm assistant who answers
@@ -20,8 +20,20 @@ const api = new ChatGPTAPI({
 })
 
 // middleware
-app.use(cors());
+const corsOptions = {origin:'https://bonsoir.site',
+                     optionsSuccessStatus:200,
+                     allowedHeaders: ['Content-Type', 'Authorization']
+};
+
 app.use(express.json());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://bonsoir.site');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 const apiKey = process.env.DEEPGRAM_KEY;
 
 // each user can have multiple conversations, and
@@ -79,6 +91,10 @@ async function generateSpeech(script,voiceId,apiKey) {
     console.error('Error:', error);
   }
 }
+
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
 // posts request body to chatgpt
 app.post('/post-query', async (req,res) => {

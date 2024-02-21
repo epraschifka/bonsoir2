@@ -17,7 +17,6 @@ function LeftNav(props)
 
     // get convos on initial page load
     useEffect(() => {
-        console.log(`LeftNav props.CurrentID = ${props.convoID}`);
         retrieveConvos();
     },[])
 

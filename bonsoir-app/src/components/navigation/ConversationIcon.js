@@ -12,7 +12,6 @@ function ConversationIcon(props)
     const activeClass = props.id === props.CurrentID ? 'active-conversation' : '';
 
     useEffect(() => {
-        console.log(editing); 
         if (editing) {
             linkRef.current.focus();
         }
@@ -32,15 +31,12 @@ function ConversationIcon(props)
 
     async function deleteConvo()
     {
-        console.log('deleteConvo triggered')
         const url = `${process.env.REACT_APP_SERVER_URL}/delete-conversation`;
         const method = 'delete';
         const headers = {'Content-Type': 'application/json'};
         const body = JSON.stringify({id: props.id});
         const options = {method:method,headers:headers,body:body};
-        console.log('sending fetch...')
         await fetch(url,options);
-        console.log('received response')
         if (props.id === props.CurrentID)
         {
             window.location.href = '/home';
