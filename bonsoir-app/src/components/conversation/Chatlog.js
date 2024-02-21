@@ -20,6 +20,7 @@ function Chatlog(props)
             if (props.convoID)
             {
                 const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-id/${props.convoID}`;
+                const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-id/${props.convoID}`;
                 const res = await fetch(url);
                 const res_json = await res.json();
                 const statements = res_json.convo.statements;
