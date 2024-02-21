@@ -24,7 +24,6 @@ function LeftNav(props)
     async function retrieveConvos()
     {
         const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-email/${user.email}`;
-        const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-email/${user.email}`;
         const method = 'get';
         const headers = {'Content-Type': 'application/json'};
         const options = {method:method,headers:headers};
@@ -37,7 +36,6 @@ function LeftNav(props)
     // to update navbar.
     async function createNewConvo(string)
     {
-        const url = `${process.env.REACT_APP_SERVER_URL}/create-conversation`;
         const url = `${process.env.REACT_APP_SERVER_URL}/create-conversation`;
         const method = 'post';
         const headers = {'Content-Type': 'application/json'};

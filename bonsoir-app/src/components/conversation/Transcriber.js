@@ -37,7 +37,6 @@ function Transcriber(props)
 
     async function getApiKey() {
         const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/apiKey`);
-        const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/apiKey`);
         const json = await result.json();
         setApiKey(json.apiKey);
     }
@@ -49,11 +48,9 @@ function Transcriber(props)
         const userMicrophone = new MediaRecorder(userMedia);
 
         userMicrophone.onstart = () => {
-            console.log("microphone opened");
         };
         
         userMicrophone.onstop = () => {
-            console.log("microphone closed");
         };
 
         setMicrophone(userMicrophone);
@@ -67,12 +64,10 @@ function Transcriber(props)
         const _socket = _deepgram.listen.live(options);
 
         _socket.on(LiveTranscriptionEvents.Open, () => {
-            console.log("socket opened");
             setSocketOpen(true);
         })
 
         _socket.on(LiveTranscriptionEvents.Close, () => {
-            console.log("socket closed");
             setSocketOpen(false);
         })
 
@@ -125,7 +120,6 @@ function Transcriber(props)
     // update conversation with new statement
   async function updateConversation(speaker,statement) {
     const url = `${process.env.REACT_APP_SERVER_URL}/update-conversation/`;
-    const url = `${process.env.REACT_APP_SERVER_URL}/update-conversation/`;
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
     const body = JSON.stringify({'convoID':props.convoID, speaker:speaker, 'statement':statement, 'messageId': statement.id})
@@ -136,7 +130,6 @@ function Transcriber(props)
   
   // gets response from chatgpt
   async function getResponse(statement) {
-    const url = `${process.env.REACT_APP_SERVER_URL}/post-query/`;
     const url = `${process.env.REACT_APP_SERVER_URL}/post-query/`;
     const headers = {'Content-Type': 'application/json'};
     const body = JSON.stringify({'query':statement,'parentMessageId':messageId})
@@ -149,7 +142,6 @@ function Transcriber(props)
     const uint8Array = new Uint8Array(audioArray);
     const blob = new Blob([uint8Array], { type: 'audio/wav' });
     setBlobUrl(URL.createObjectURL(blob));
-    console.log(blobUrl);
     setThinking(false);
     const reply = {'text':res_json.text,'audio':blob, 'id': res_json.id};
     return reply;
