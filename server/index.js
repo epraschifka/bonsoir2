@@ -19,21 +19,8 @@ const api = new ChatGPTAPI({
   systemMessage: systemMessage             
 })
 
-// middleware
-const corsOptions = {origin:'https://bonsoir.site',
-                     optionsSuccessStatus:200,
-                     allowedHeaders: ['Content-Type', 'Authorization']
-};
-
 app.use(express.json());
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://bonsoir.site');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+app.use(cors());
 const apiKey = process.env.DEEPGRAM_KEY;
 
 // each user can have multiple conversations, and
@@ -70,7 +57,7 @@ async function generateSpeech(script,voiceId,apiKey) {
   const options = {
     method: 'POST',
     headers: {
-      accept: 'audio/mpeg',
+      accept: 'audio/mp4',
       'content-type': 'application/json',
       'xi-api-key': apiKey,
     },

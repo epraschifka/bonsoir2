@@ -20,9 +20,7 @@
 }
 
 .intro-video {
-    max-width:50%;
     padding:1rem;
-    object-fit: cover;
 }
 
 .features-header {

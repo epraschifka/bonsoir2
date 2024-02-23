@@ -11,15 +11,15 @@ function WelcomePage()
             <section id='home'>
                 <div className='intro-wrapper'>
                     <div className='intro-text'>
-                        <h1>An <span class='emphasis'>intelligent</span> virtual assistant with <span class='emphasis'>speech recognition</span> and <span class='emphasis'>synthesis</span></h1>
+                        <h1>An <span class='emphasis'>intelligent</span> virtual assistant with <span class='emphasis'>speech recognition</span> and <span class='emphasis'>speech generation</span></h1>
                         <NavLink to='/home'>
                             <button className='intro-button btn'>
                                 Get started
                             </button>
                         </NavLink>
                     </div>
-                    <video controls className='intro-video'>
-                        <source src="https://samplelib.com/lib/preview/mp4/sample-30s.mp4" type="video/mp4" width='200px'/>
+                    <video autoPlay muted className='intro-video'>
+                        <source src="https://bonsoir-bucket.s3.ap-southeast-2.amazonaws.com/bonsoir-video.mp4" type="video/mp4"></source>
                     </video>
                 </div>
             </section>

@@ -28,7 +28,9 @@ function Transcriber(props)
         getMicrophone();
     },[])
 
-    useEffect(() => {
+    useEffect(() => { 
+        console.log(`useEffect triggered with socket = ${socket ? true : false}
+                     and socketOpen = ${socketOpen}`);
         if (socket && socketOpen)
         {
             setupLink();
@@ -45,12 +47,21 @@ function Transcriber(props)
         const userMedia = await navigator.mediaDevices.getUserMedia({
           audio: true,
         });
-        const userMicrophone = new MediaRecorder(userMedia);
+
+        let mimeType = 'audio/webm';
+
+        if (!MediaRecorder.isTypeSupported(mimeType)) {
+          mimeType = 'audio/mp4';
+        }
+
+        const userMicrophone = new MediaRecorder(userMedia, { mimeType: mimeType });
 
         userMicrophone.onstart = () => {
+          console.log('microphone started');
         };
         
         userMicrophone.onstop = () => {
+          console.log('microphone stopped');
         };
 
         setMicrophone(userMicrophone);
@@ -65,10 +76,12 @@ function Transcriber(props)
 
         _socket.on(LiveTranscriptionEvents.Open, () => {
             setSocketOpen(true);
+            console.log("socket open");
         })
 
         _socket.on(LiveTranscriptionEvents.Close, () => {
             setSocketOpen(false);
+            console.log('socket closed');
         })
 
         setSocket(_socket);
@@ -76,39 +89,48 @@ function Transcriber(props)
     
     async function setupLink()
     {
-        microphone.ondataavailable = (e) => {
-            socket.send(e.data);
+      console.log('setting up link...');
+
+      microphone.ondataavailable = (e) => {
+        if (e.data.size > 0)
+        {
+          socket.send(e.data);
+          console.log(`sent data with size = ${e.data.size} bytes.`)
         }
+        
+      }
 
-        socket.on("Results", async (data) => {
-            const _transcript = data.channel.alternatives[0].transcript;
+      socket.on("Results", async (data) => {
+          const _transcript = data.channel.alternatives[0].transcript;
 
-            if (_transcript) {
-                setTranscript(_transcript);
-            }
+          if (_transcript) {
+              setTranscript(_transcript);
+          }
 
-            if (_transcript && data.speech_final)
-            {
-                closeSocket();
-                setThinking(true);
-                const query = {text:_transcript, id: messageId};
-                await updateConversation(speaker,query);
-                setInput(_transcript);
-                const bonsoirResponse = await getResponse(_transcript);
-                await updateConversation('Bonsoir',bonsoirResponse);
-                setTranscript('');
-            }
-        })
+          if (_transcript && data.speech_final)
+          {
+              console.log('data.speech_final is true');
+              closeSocket();
+              setThinking(true);
+              const query = {text:_transcript, id: messageId};
+              await updateConversation(speaker,query);
+              setInput(_transcript);
+              const bonsoirResponse = await getResponse(_transcript);
+              await updateConversation('Bonsoir',bonsoirResponse);
+              setTranscript('');
+          }
+      })
 
-        await microphone.start(500);
-        const audioURL = process.env.PUBLIC_URL + '/sounds/mic_open.mp3';
-        const micStartAudio = new Audio(audioURL);
-        micStartAudio.play(); 
-        setRecording(true);
+      await microphone.start(500);
+      const audioURL = process.env.PUBLIC_URL + '/sounds/mic_open.mp3';
+      const micStartAudio = new Audio(audioURL);
+      micStartAudio.play(); 
+      setRecording(true);
     }
 
     function closeSocket()
     {
+      console.log('closing socket...');
         microphone.stop();
         socket.finish();
         const audioURL = process.env.PUBLIC_URL + '/sounds/mic_close.mp3';
@@ -140,7 +162,7 @@ function Transcriber(props)
     const audio = res_json.audio;
     const audioArray = Object.values(audio);
     const uint8Array = new Uint8Array(audioArray);
-    const blob = new Blob([uint8Array], { type: 'audio/wav' });
+    const blob = new Blob([uint8Array], { type: 'audio/mp4' });
     setBlobUrl(URL.createObjectURL(blob));
     setThinking(false);
     const reply = {'text':res_json.text,'audio':blob, 'id': res_json.id};
@@ -166,7 +188,7 @@ function Transcriber(props)
             {!recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={props.disabled || playing || speaker === 'Bonsoir'}>Start recording</button>}
             {recording && <button className='btn recording' onClick={() => closeSocket()}>Recording, Click to Cancel</button>}
             {thinking && <button className='btn' disabled><div className='loader'></div></button>}
-            <audio autoPlay src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
+            <audio autoPlay controls src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
         </div>
         </div>
     )
