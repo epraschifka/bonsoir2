@@ -7,7 +7,7 @@ import { MongoClient } from 'mongodb';
 import { ObjectId } from 'mongodb';
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 const elevenLabsKey = process.env.ELEVENLABS_KEY;
 const elevenLabsVoice = '21m00Tcm4TlvDq8ikWAM'
 const systemMessage = `You are a friendly, warm assistant who answers
@@ -111,7 +111,10 @@ app.post('/create-conversation', async (req,res) => {
   const text = `Press the button below to start speaking.
                 Speak clearly and try not to pause between 
                 words for the best experience. If your speech is transcribed but you
-                don't hear a confirmation ding, try repeating your statement. Have fun!`
+                don't hear a confirmation ding, try repeating your statement. Note that Bonsoir
+                is best experienced on a desktop or laptop computer for the most fluid user experience. 
+                Have fun!`
+
   const pushCommand = {$push: {statements: {speaker:'Bonsoir',text:text,messageId:'#',time:getTime()}}};
   await conversations.updateOne(filter,pushCommand);
 
