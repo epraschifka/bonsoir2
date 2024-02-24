@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import './styles/TopNav.css';
 import LogoutButton from "./LogoutButton";
 import LoginButton from './LoginButton';
+import LeftNav from './LeftNav';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -38,7 +39,7 @@ function TopNav(props)
                 </div>
             </nav>
             <div className={classes}>
-                {props.convos}
+                <LeftNav convoID={props.convoID}/>
                 <a className='topnav-dropdown-item' href='http://localhost:3000/#features' onClick={toggleDrop}>Features</a>
             </div>
         </div>

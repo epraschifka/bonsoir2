@@ -17,7 +17,8 @@ function Transcriber(props)
     const [transcript,setTranscript] = useState('');
     const [blobUrl, setBlobUrl] = useState(null);
     const [pending, setPending] = useState(false);
-    const [audioElement, setAudioElement] = useState(null);
+    const [micAccess, setMicAccess] = useState(false);
+    const [audioElement, setAudioElement] = useState(new Audio());
     const { speaker, setSpeaker, input, 
             setInput, messageId, setMessageId,
             playing, setPlaying,
@@ -31,8 +32,6 @@ function Transcriber(props)
     },[])
 
     useEffect(() => { 
-        console.log(`useEffect triggered with socket = ${socket ? true : false}
-                     and socketOpen = ${socketOpen}`);
         if (socket && socketOpen)
         {
             setupLink();
@@ -40,36 +39,46 @@ function Transcriber(props)
     }, [socket,socketOpen])
 
     async function getApiKey() {
+      try {
         const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/apiKey`);
         const json = await result.json();
         setApiKey(json.apiKey);
+      } 
+      catch (error) {
+        props.setAlert('Error getting API key. Check your internet connection or try again later.');}
     }
 
     async function getMicrophone() {
-        const userMedia = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
+      let userMedia;
 
-        let mimeType = 'audio/webm';
-
-        if (!MediaRecorder.isTypeSupported(mimeType)) {
-          mimeType = 'audio/mp4';
-        }
-
-        const userMicrophone = new MediaRecorder(userMedia, { mimeType: mimeType });
-
-        userMicrophone.onstart = () => {
-          console.log('microphone started');
-        };
-        
-        userMicrophone.onstop = () => {
-          console.log('microphone stopped');
-        };
-
-        setMicrophone(userMicrophone);
+      try {
+        userMedia = await navigator.mediaDevices.getUserMedia({audio: true});
+      } 
+      catch {
+        props.setAlert('Access to microphone denied. Please allow access to your microphone or try again later.');
       }
 
+      setMicAccess(true);
+
+      let mimeType = 'audio/webm';
+
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'audio/mp4';
+      }
+
+      const userMicrophone = new MediaRecorder(userMedia, { mimeType: mimeType });
+
+      userMicrophone.onstart = () => {
+      };
+      
+      userMicrophone.onstop = () => {
+      };
+
+      setMicrophone(userMicrophone);
+    }
+
     function getSocket() {
+        try {
         const _deepgram = createClient(apiKey);
         const options = { model: "nova-2", smart_format: true, 
                           language: 'en-AU', interim_results: true,
@@ -78,26 +87,31 @@ function Transcriber(props)
 
         _socket.on(LiveTranscriptionEvents.Open, () => {
             setSocketOpen(true);
-            console.log("socket open");
         })
 
         _socket.on(LiveTranscriptionEvents.Close, () => {
             setSocketOpen(false);
-            console.log('socket closed');
         })
 
         setSocket(_socket);
-      }
+        }
+        catch {
+            props.setAlert('Error creating connection to Deepgram. Check your internet connection or try again later.');
+        }
+    }
     
     async function setupLink()
     {
-      console.log('setting up link...');
+      const timeout = setTimeout(() => {
+        closeSocket();
+        props.setAlert('Recording cancelled due to timeout');
+      }, 60000)
 
       microphone.ondataavailable = (e) => {
         if (e.data.size > 0)
         {
           socket.send(e.data);
-          console.log(`sent data with size = ${e.data.size} bytes.`)
+          console.log(`data sent with size ${e.data.size}`);
         }
         
       }
@@ -111,7 +125,7 @@ function Transcriber(props)
 
           if (_transcript && data.speech_final)
           {
-              console.log('data.speech_final is true');
+              timeout && clearTimeout(timeout);
               closeSocket();
               setThinking(true);
               const query = {text:_transcript, id: messageId};
@@ -122,7 +136,7 @@ function Transcriber(props)
               setTranscript('');
           }
       })
-
+      
       await microphone.start(500);
       const audioURL = process.env.PUBLIC_URL + '/sounds/mic_open.mp3';
       const micStartAudio = new Audio(audioURL);
@@ -132,17 +146,17 @@ function Transcriber(props)
 
     function closeSocket()
     {
-      console.log('closing socket...');
-        microphone.stop();
-        socket.finish();
-        const audioURL = process.env.PUBLIC_URL + '/sounds/mic_close.mp3';
-        const micStopAudio = new Audio(audioURL);
-        micStopAudio.play(); 
-        setRecording(false);
+      microphone.stop();
+      socket.finish();
+      const audioURL = process.env.PUBLIC_URL + '/sounds/mic_close.mp3';
+      const micStopAudio = new Audio(audioURL);
+      micStopAudio.play(); 
+      setRecording(false);
     }
 
     // update conversation with new statement
   async function updateConversation(speaker,statement) {
+    try {
     const url = `${process.env.REACT_APP_SERVER_URL}/update-conversation/`;
     const method = 'post';
     const headers = {'Content-Type': 'application/json'};
@@ -150,23 +164,35 @@ function Transcriber(props)
     const options = {method:method,headers:headers,body:body};
     await fetch(url,options);
     setInput(statement);
+    }
+    catch {
+      props.setAlert('Error updating conversation. Check your internet connection and try again.');
+  
+    }
   }
   
   // gets response from chatgpt
   async function getResponse(statement) {
+    let _audioElement;
+    let res_json;
+
+    try {
     const url = `${process.env.REACT_APP_SERVER_URL}/post-query/`;
     const headers = {'Content-Type': 'application/json'};
     const body = JSON.stringify({'query':statement,'parentMessageId':messageId})
     const options = {method:'post',headers:headers,body:body};
     const res = await fetch(url,options);
-    const res_json = await res.json();
+    res_json = await res.json();
     setMessageId(res_json.id);
     const audio = res_json.audio;
     const audioArray = Object.values(audio);
     const uint8Array = new Uint8Array(audioArray);
     const blob = new Blob([uint8Array], { type: 'audio/mpeg' });
     const blobUrl = URL.createObjectURL(blob);
-    const _audioElement = new Audio(blobUrl);
+    _audioElement = new Audio(blobUrl);
+    } catch {
+      props.setAlert('Error getting response. Check your internet connection and try again.');
+    }
 
     _audioElement.onplay = () => {
       setPlaying(true);
@@ -176,16 +202,18 @@ function Transcriber(props)
     _audioElement.onpause = () => {
       setPlaying(false);
       setSpeaker(user.name);
+      setTranscript('');
     }
 
     setAudioElement(_audioElement);
+
     _audioElement.play().then(() => {
     }).catch(error => {
       setPending(true);
     })
 
     setThinking(false);
-    const reply = {'text':res_json.text,'audio':blob, 'id': res_json.id};
+    const reply = {'text':res_json.text, 'id': res_json.id};
     return reply;
   }
 
@@ -201,10 +229,11 @@ function Transcriber(props)
         <p className='transcript desktop'>{transcript ? transcript : props.disabled ? 'Create a new conversation or load an existing conversation using the bar on the left.': 'Transcribed speech will appear here.'}</p>
         <p className='transcript mobile'>{transcript ? transcript : props.disabled ? 'Create a new conversation or load an existing conversation using the icon in the top left.': 'Transcribed speech will appear here.'}</p>
         <div className='transcriber-buttons'>
-            {!pending && !recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={props.disabled || playing || speaker === 'Bonsoir'}>Start recording</button>}
-            {recording && <button className='btn recording' onClick={() => closeSocket()}>Recording, Click to Cancel</button>}
-            {thinking && <button className='btn' disabled><div className='loader'></div></button>}
-            {pending && <button className='btn' onClick={playMissed}>Play response</button>}
+            {micAccess && !pending && !recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={props.disabled || playing || speaker === 'Bonsoir'}>Start recording</button>}
+            {micAccess && recording && <button className='btn recording' onClick={() => closeSocket()}>Recording, Click to Cancel</button>}
+            {micAccess && thinking && <button className='btn' disabled><div className='loader'></div></button>}
+            {micAccess && pending && <button className='btn' onClick={playMissed}>Play response</button>}
+            {!micAccess && <button className='btn' disabled>Microphone access required</button>}
         </div>
         </div>
     )

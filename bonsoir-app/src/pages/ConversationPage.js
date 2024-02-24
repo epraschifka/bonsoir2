@@ -6,6 +6,7 @@ import TopNav from '../components/navigation/TopNav';
 import LeftNav from "../components/navigation/LeftNav";
 import Chatlog from '../components/conversation/Chatlog';
 import Transcriber from '../components/conversation/Transcriber';
+import AlertBanner from '../components/alert/AlertBanner';
 import './styles/ConversationPage.css';
 
 export const inputCtx = createContext({speaker:''});
@@ -22,6 +23,7 @@ function ConversationPage(props)
     const [playing, setPlaying] = useState(false);
     const [recording, setRecording] = useState(false);
     const [thinking, setThinking] = useState(false);
+    const [alert, setAlert] = useState('');
 
     // get the conversation corresponding to the convoID
     useEffect(() => {
@@ -55,7 +57,8 @@ function ConversationPage(props)
 
     return (
         <div className='page-wrapper'>
-            <TopNav convos={<LeftNav convoID={props.convoID}/>}/>
+            <TopNav convoID={props.convoID}/>
+            {alert && <AlertBanner severity="error" text={alert}></AlertBanner>}
             <inputCtx.Provider value={{input,setInput,
                                         speaker,setSpeaker,
                                         messageId,setMessageId,
@@ -63,12 +66,12 @@ function ConversationPage(props)
                                         recording,setRecording,
                                         thinking, setThinking}}>
                 <div className='leftnav-call-terminal-wrapper'>
-                    <LeftNav convoID={props.convoID}/>
+                    <LeftNav num={3} convoID={props.convoID}/>
                         <div className='terminal-wrapper'>
                             <p className='terminal-title'>Terminal</p>
                             <div className='chatlog-transcriber-wrapper'>
-                                <Chatlog convoID = {props.convoID}/>
-                                <Transcriber convoID = {props.convoID}/>
+                                <Chatlog convoID = {props.convoID} setAlert={setAlert}/>
+                                <Transcriber convoID = {props.convoID} setAlert={setAlert}/>
                             </div>
                         </div>
                 </div>

@@ -17,36 +17,46 @@ function LeftNav(props)
 
     // get convos on initial page load
     useEffect(() => {
-        retrieveConvos();
-    },[])
+        if (props)
+        {
+            retrieveConvos();
+        }
+    },[props])
 
     // function to retrieve conversations started by this user
     async function retrieveConvos()
     {
-        const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-email/${user.email}`;
-        const method = 'get';
-        const headers = {'Content-Type': 'application/json'};
-        const options = {method:method,headers:headers};
-        const res = await fetch(url,options);
-        const res_json = await res.json();
-        setConvos(res_json);
+        try {
+            const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-email/${user.email}`;
+            const method = 'get';
+            const headers = {'Content-Type': 'application/json'};
+            const options = {method:method,headers:headers};
+            const res = await fetch(url,options);
+            const res_json = await res.json();
+            setConvos(res_json);
+        } catch (error) {
+        }
     }
 
     // add new conversation to navbar, and retrieve convos again
     // to update navbar.
     async function createNewConvo(string)
     {
-        const url = `${process.env.REACT_APP_SERVER_URL}/create-conversation`;
-        const method = 'post';
-        const headers = {'Content-Type': 'application/json'};
-        const email = user.email;
-        const title = string;
-        const body = JSON.stringify({email: email, title: title});
-        const options = {method:method,headers:headers,body:body};
-        const res = await fetch(url,options);
-        const res_json = await res.json();
-        const convoID = res_json.info;
-        await retrieveConvos();
+        try {
+            const url = `${process.env.REACT_APP_SERVER_URL}/create-conversation`;
+            const method = 'post';
+            const headers = {'Content-Type': 'application/json'};
+            const email = user.email;
+            const title = string;
+            const body = JSON.stringify({email: email, title: title});
+            const options = {method:method,headers:headers,body:body};
+            const res = await fetch(url,options);
+            const res_json = await res.json();
+            const convoID = res_json.info;
+            await retrieveConvos();
+        }
+        catch (error) {
+        }
     }
 
     return (

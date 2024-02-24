@@ -17,18 +17,23 @@ function Chatlog(props)
 
     useEffect(() => {
         async function retrieveConversation() {
-            if (props.convoID)
-            {
-                const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-id/${props.convoID}`;
-                const res = await fetch(url);
-                const res_json = await res.json();
-                const statements = res_json.convo.statements;
-                const lastStatement = statements[statements.length-1];
-                if (statements.length > 0)
+            try {
+                if (props.convoID)
                 {
-                    setMessageId(lastStatement.messageId);
+                    const url = `${process.env.REACT_APP_SERVER_URL}/retrieve-conversations-id/${props.convoID}`;
+                    const res = await fetch(url);
+                    const res_json = await res.json();
+                    const statements = res_json.convo.statements;
+                    const lastStatement = statements[statements.length-1];
+                    if (statements.length > 0)
+                    {
+                        setMessageId(lastStatement.messageId);
+                    }
+                    setChatlog(statements);
                 }
-                setChatlog(statements);
+            } 
+            catch (error) {
+                props.setAlert('Error retrieving conversation. Check your internet connection and try again.');
             }
         }
 
