@@ -3,14 +3,13 @@
 }
 
 .intro-wrapper {
-    display:flex;
     background-color:rgb(248, 227, 227);
 }
 
 .intro-text {
-    max-width: 50%;
-    font-size: 3rem;
-    padding: 4rem 1rem 4rem 4rem;
+    font-size:2rem;
+    padding: 4rem 0rem 4rem 4rem;
+    width: 600px;
 }
 
 .intro-button {
@@ -19,20 +18,15 @@
     margin-top: 2rem;
 }
 
-.intro-video {
-    padding:1rem;
-}
-
 .features-header {
     padding: 8rem 4rem 0rem 4rem;
     font-size: 3rem;
 }
 
 .features-grid {
-    padding: 4rem 2rem 4rem 2rem;
+    padding: 4rem 4rem 4rem 4rem;
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap:3px;
 }
 
 .footer {
@@ -40,23 +34,27 @@
     background-color:crimson;
 }
 
-@media screen and (max-width: 900px) {
-    .intro-text {
-        font-size: 2rem;
-    }
-}
 
-
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
     .intro-text {
-        width: 80%;
-        font-size: 1.5rem;
-        padding: 1rem 1rem 1rem 1rem;
+        padding: 1rem 0rem 1rem 1rem;
+        font-size:1.5rem;
+        width:300px;
     }
 
     .intro-button {
         padding:1rem;
         font-size:1.5rem;
         margin-top: 1rem;
+    }
+
+    .features-header {
+        padding: 6rem 4rem 0rem 1rem;
+        font-size: 2rem;
+    }
+    
+    .features-grid {
+        padding: 4rem 0.5rem 4rem 0.5rem;
+        row-gap:1rem;
     }
 }

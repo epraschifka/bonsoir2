@@ -16,6 +16,8 @@ function Transcriber(props)
     const [socketOpen, setSocketOpen] = useState(false);
     const [transcript,setTranscript] = useState('');
     const [blobUrl, setBlobUrl] = useState(null);
+    const [pending, setPending] = useState(false);
+    const [audioElement, setAudioElement] = useState(null);
     const { speaker, setSpeaker, input, 
             setInput, messageId, setMessageId,
             playing, setPlaying,
@@ -162,33 +164,46 @@ function Transcriber(props)
     const audio = res_json.audio;
     const audioArray = Object.values(audio);
     const uint8Array = new Uint8Array(audioArray);
-    const blob = new Blob([uint8Array], { type: 'audio/mp4' });
-    setBlobUrl(URL.createObjectURL(blob));
+    const blob = new Blob([uint8Array], { type: 'audio/mpeg' });
+    const blobUrl = URL.createObjectURL(blob);
+    const _audioElement = new Audio(blobUrl);
+
+    _audioElement.onplay = () => {
+      setPlaying(true);
+      setSpeaker('Bonsoir');
+    }
+
+    _audioElement.onpause = () => {
+      setPlaying(false);
+      setSpeaker(user.name);
+    }
+
+    setAudioElement(_audioElement);
+    _audioElement.play().then(() => {
+    }).catch(error => {
+      setPending(true);
+    })
+
     setThinking(false);
     const reply = {'text':res_json.text,'audio':blob, 'id': res_json.id};
     return reply;
   }
-  
-  function startPlaying()
+
+  function playMissed()
   {
     setPlaying(true);
-    setSpeaker('Bonsoir');
-  }
-
-  function stopPlaying()
-  {
-    setPlaying(false);
-    setSpeaker(user.name);
+    audioElement.play();
+    setPending(false);
   }
 
     return (
         <div className='transcriber-wrapper'>
         <p className='transcript'>{transcript ? transcript : props.disabled ? 'Create a new conversation or load an existing conversation using the bar on the left.': 'Transcribed speech will appear here.'}</p>
         <div className='transcriber-buttons'>
-            {!recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={props.disabled || playing || speaker === 'Bonsoir'}>Start recording</button>}
+            {!pending && !recording && !thinking && <button className='btn' onClick={() => getSocket()} disabled={props.disabled || playing || speaker === 'Bonsoir'}>Start recording</button>}
             {recording && <button className='btn recording' onClick={() => closeSocket()}>Recording, Click to Cancel</button>}
             {thinking && <button className='btn' disabled><div className='loader'></div></button>}
-            <audio autoPlay controls src={blobUrl} onPlay={startPlaying} onPause={stopPlaying}/>
+            {pending && <button className='btn' onClick={playMissed}>Play response</button>}
         </div>
         </div>
     )

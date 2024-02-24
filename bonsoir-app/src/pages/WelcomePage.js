@@ -18,9 +18,6 @@ function WelcomePage()
                             </button>
                         </NavLink>
                     </div>
-                    <video autoPlay muted className='intro-video'>
-                        <source src="https://bonsoir-bucket.s3.ap-southeast-2.amazonaws.com/bonsoir-video.mp4" type="video/mp4"></source>
-                    </video>
                 </div>
             </section>
 

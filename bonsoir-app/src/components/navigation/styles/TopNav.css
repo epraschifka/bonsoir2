@@ -80,5 +80,6 @@
 @media screen and (max-width: 600px) {
     .topnav-wrapper {
         padding: 0rem 1rem 0rem 1rem;
+        margin-bottom:0.5rem;
     }
 }
