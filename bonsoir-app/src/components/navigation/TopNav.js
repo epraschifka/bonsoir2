@@ -39,8 +39,8 @@ function TopNav(props)
                 </div>
             </nav>
             <div className={classes}>
-                <LeftNav convoID={props.convoID}/>
-                <a className='topnav-dropdown-item' href='http://localhost:3000/#features' onClick={toggleDrop}>Features</a>
+                {isAuthenticated && <LeftNav convoID={props.convoID}/>}
+                <a className='topnav-dropdown-item' href='/#features' onClick={toggleDrop}>Features</a>
             </div>
         </div>
     )

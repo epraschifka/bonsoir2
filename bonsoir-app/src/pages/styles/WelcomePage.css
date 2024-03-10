@@ -1,15 +1,11 @@
-.page-wrapper {
-    padding:0rem;
-}
-
 .intro-wrapper {
-    box-shadow: 0px 10px 20px 2px crimson;
+    padding: 0rem 16rem;
 }
 
 .intro-text {
     font-size:3rem;
-    padding: 6rem 4rem 6rem 4rem;
-    max-width: 1000px;
+    padding: 6rem 0rem;
+    max-width: 1100px;
 }
 
 .intro-button {
@@ -18,15 +14,20 @@
     margin-top: 2rem;
 }
 
+#features {
+    padding: 0rem 16rem;
+}
+
 .features-header {
-    padding: 8rem 4rem 0rem 4rem;
+    padding: 8rem 0rem;
     font-size: 3rem;
 }
 
 .features-grid {
-    padding: 4rem 4rem 4rem 4rem;
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap:10px;
+    margin-bottom:2rem;
 }
 
 .footer {
@@ -34,19 +35,29 @@
     background-color:crimson;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1300px) {
+    .intro-wrapper {
+        padding: 0rem 8rem;
+    }
+
     .intro-text {
-        font-size:2.2rem;
-        max-width:800px;   
+        font-size:2.5rem;
+    }
+
+    #features {
+        padding: 0rem 8rem;
     }
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
+    .intro-wrapper {
+        padding: 0rem 2rem;
+    }
+
     .intro-text {
-        padding: 1rem 0rem 1rem 1rem;
-        font-size:1.4rem;
-        max-width:400px;
+        font-size:2rem;
+        padding:1rem;
     }
 
     .intro-button {
@@ -63,5 +74,15 @@
     .features-grid {
         padding: 4rem 0.5rem 4rem 0.5rem;
         row-gap:1rem;
+    }
+
+    #features {
+        padding: 0rem 0.25rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .intro-text {
+        font-size:1.2rem;
     }
 }

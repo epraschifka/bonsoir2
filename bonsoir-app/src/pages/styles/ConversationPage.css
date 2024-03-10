@@ -1,7 +1,7 @@
 .leftnav-call-terminal-wrapper {
     display:flex;
     height:80vh;
-    padding: 0rem 3rem 0rem 3rem;
+    padding: 0rem 16rem;
 }
 
 .terminal-wrapper {
@@ -25,6 +25,12 @@
     overflow:hidden;
 }
 
+@media screen and (max-width: 1300px) {
+    .leftnav-call-terminal-wrapper {
+        padding: 0rem 8rem;
+    }
+}
+
 @media screen and (max-width: 1000px) {
 
     .terminal-wrapper {
@@ -33,7 +39,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .leftnav-call-terminal-wrapper {
         padding: 0rem 0rem 0rem 0rem;
     }

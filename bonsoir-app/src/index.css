@@ -1,10 +1,13 @@
+html {
+  scroll-behavior: smooth;
+}
+
 :root * {
   margin: 0;
   box-sizing: border-box;
   --color-theme: crimson;
   font-family:sans-serif;
 }
-
 
 .emphasis {
   color: crimson;
